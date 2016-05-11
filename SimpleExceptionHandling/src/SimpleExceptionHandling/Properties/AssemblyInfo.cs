@@ -31,11 +31,11 @@ using System.Runtime.InteropServices;
 
 #endif
 
-[assembly: AssemblyTitle("SimpleExceptionHandler")]
+[assembly: AssemblyTitle("SimpleExceptionHandling")]
 [assembly: AssemblyDescription("Library that helps developers to handle exceptions outside catch blocks.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Net.JoaoSimoes")]
-[assembly: AssemblyProduct("SimpleExceptionHandler")]
+[assembly: AssemblyProduct("SimpleExceptionHandling")]
 [assembly: AssemblyCopyright("Copyright © 2016 João Simões")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
