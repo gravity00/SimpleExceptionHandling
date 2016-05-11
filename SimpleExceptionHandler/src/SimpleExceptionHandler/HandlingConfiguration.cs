@@ -5,7 +5,7 @@
     /// <summary>
     /// The exception handling configuration.
     /// </summary>
-    public class HandlingConfiguration
+    public class HandlingConfiguration : IHandlingConfiguration
     {
         private Func<Exception, bool>[] _handlers = new Func<Exception, bool>[10];
         private int _handlerCount;
@@ -18,7 +18,7 @@
         /// <param name="handler">The handler to be added</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public HandlingConfiguration On<TException>(Action<TException> handler)
+        public IHandlingConfiguration On<TException>(Action<TException> handler)
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -44,7 +44,7 @@
         /// <param name="handler">The handler to be added</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public HandlingConfiguration On<TException>(Func<TException, bool> handler)
+        public IHandlingConfiguration On<TException>(Func<TException, bool> handler)
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
