@@ -16,9 +16,10 @@
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
         /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(Action<TException> handler)
+        public IHandlingConfiguration On<TException>(Action<TException> handler, Func<TException, bool> condition = null)
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -29,8 +30,12 @@
                 if (castedException == null)
                     return false;
 
-                handler(castedException);
-                return true;
+                if (condition == null || condition(castedException))
+                {
+                    handler(castedException);
+                    return true;
+                }
+                return false;
             });
 
             return this;
@@ -42,9 +47,10 @@
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
         /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(Func<TException, bool> handler)
+        public IHandlingConfiguration On<TException>(Func<TException, bool> handler, Func<TException, bool> condition = null)
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -52,7 +58,13 @@
             AddHandler(ex =>
             {
                 var castedException = ex as TException;
-                return castedException != null && handler(castedException);
+                if (castedException == null)
+                    return false;
+
+                if (condition == null || condition(castedException))
+                    return handler(castedException);
+
+                return false;
             });
 
             return this;

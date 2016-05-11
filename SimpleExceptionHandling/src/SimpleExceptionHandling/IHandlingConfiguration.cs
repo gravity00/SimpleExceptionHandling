@@ -13,9 +13,10 @@
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
         /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(Action<TException> handler)
+        IHandlingConfiguration On<TException>(Action<TException> handler, Func<TException, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -24,9 +25,10 @@
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
         /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(Func<TException, bool> handler)
+        IHandlingConfiguration On<TException>(Func<TException, bool> handler, Func<TException, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
