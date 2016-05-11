@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimpleExceptionHandler", "src\SimpleExceptionHandler\SimpleExceptionHandler.xproj", "{7C547964-762F-4E2A-9473-E3FB5D1ADCCB}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimpleExceptionHandling", "src\SimpleExceptionHandling\SimpleExceptionHandling.xproj", "{7C547964-762F-4E2A-9473-E3FB5D1ADCCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

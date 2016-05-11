@@ -1,4 +1,4 @@
-﻿namespace SimpleExceptionHandler
+﻿namespace SimpleExceptionHandling
 {
 #if NET20
     
