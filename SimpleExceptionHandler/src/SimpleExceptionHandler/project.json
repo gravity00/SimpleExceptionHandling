@@ -1,0 +1,46 @@
+﻿{
+  "version": "1.0.0-alpha01",
+  "title": "SimpleExceptionHandler",
+  "summary": "Library that helps developers to handle exceptions outside catch blocks.",
+  "description": "Library that helps developers to handle exceptions outside catch blocks. Typical usages are global exception handlers.",
+  "authors": [ "João Simões" ],
+  "tags": [ "exception", "handler" ],
+  "projectUrl": "https://github.com/gravity00/SimpleExceptionHandler",
+  "licenseUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandler/master/README.md",
+  "iconUrl": "",
+  "language": "en-US",
+  "copyright": "Copyright © 2016 João Simões",
+  "releaseNotes": "",
+
+  "frameworks": {
+    ".NETPortable,Version=v4.0,Profile=Profile328": {
+      "compilationOptions": {
+        "define": [ "PORTABLE40" ]
+      },
+      "frameworkAssemblies": {
+        "mscorlib": "",
+        "System": "",
+        "System.Core": ""
+      }
+    },
+    "dnxcore5": {
+      "dependencies": {
+        "System.Runtime": "4.0.0"
+      }
+    },
+    "dotnet": {
+      "dependencies": {
+        "System.Runtime": "4.0.0"
+      }
+    },
+    "net20": { },
+    "net35": { },
+    "net40": { },
+    "net45": { },
+    "netcore45": {
+      "dependencies": {
+        "System.Runtime": "4.0.0"
+      }
+    }
+  }
+}
