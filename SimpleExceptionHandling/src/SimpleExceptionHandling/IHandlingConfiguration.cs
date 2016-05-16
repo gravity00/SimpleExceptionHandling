@@ -40,32 +40,6 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Action<TException, IHandlingResult> handler, Func<TException, IHandlingResult, bool> condition = null)
-            where TException : Exception;
-
-        /// <summary>
-        /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="Catch"/>, it will be considered successfully handled.
-        /// </summary>
-        /// <typeparam name="TException">The exception type</typeparam>
-        /// <param name="handler">The handler to be added</param>
-        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
-        /// <returns>The configuration after changes</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(
-            Action<TException> handler, Func<TException, IHandlingResult, bool> condition = null)
-            where TException : Exception;
-
-        /// <summary>
-        /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="Catch"/>, it will be considered successfully handled.
-        /// </summary>
-        /// <typeparam name="TException">The exception type</typeparam>
-        /// <param name="handler">The handler to be added</param>
-        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
-        /// <returns>The configuration after changes</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(
             Action<TException, IHandlingResult> handler, Func<TException, bool> condition = null)
             where TException : Exception;
 
