@@ -83,7 +83,10 @@ namespace SimpleExceptionHandling
                     return;
 
                 if (condition == null || condition(castedException, result))
+                {
                     handler(castedException);
+                    result.Handled = true;
+                }
             });
 
             return this;
@@ -139,7 +142,10 @@ namespace SimpleExceptionHandling
                     return;
 
                 if (condition == null || condition(castedException))
+                {
                     handler(castedException);
+                    result.Handled = true;
+                }
             });
 
             return this;
