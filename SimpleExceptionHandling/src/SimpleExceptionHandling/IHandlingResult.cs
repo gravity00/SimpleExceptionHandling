@@ -23,13 +23,19 @@
 #endregion
 namespace SimpleExceptionHandling
 {
-#if NET20
+    /// <summary>
+    /// Represents the result of an handling operation
+    /// </summary>
+    public interface IHandlingResult
+    {
+        /// <summary>
+        /// The state object for the handling operation
+        /// </summary>
+        object State { get; set; }
 
-    public delegate void Action<in T01, in T02>(T01 arg01, T02 arg02);
-
-    public delegate TResult Func<in T, out TResult>(T arg);
-
-    public delegate TResult Func<in T01, in T02, out TResult>(T01 arg01, T02 arg02);
-
-#endif
+        /// <summary>
+        /// Was the exception handled?
+        /// </summary>
+        bool Handled { get; set; }
+    }
 }

@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
-
 namespace SimpleExceptionHandling
 {
     using System;
@@ -40,19 +39,46 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(Action<TException> handler, Func<TException, bool> condition = null)
+        IHandlingConfiguration On<TException>(
+            Action<TException, IHandlingResult> handler, Func<TException, IHandlingResult, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="Catch"/> and returns true, it will be considered successfully handled.
+        /// a given exception on <see cref="Catch"/>, it will be considered successfully handled.
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
         /// <param name="handler">The handler to be added</param>
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(Func<TException, bool> handler, Func<TException, bool> condition = null)
+        IHandlingConfiguration On<TException>(
+            Action<TException> handler, Func<TException, IHandlingResult, bool> condition = null)
+            where TException : Exception;
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="Catch"/>, it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        IHandlingConfiguration On<TException>(
+            Action<TException, IHandlingResult> handler, Func<TException, bool> condition = null)
+            where TException : Exception;
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="Catch"/>, it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        IHandlingConfiguration On<TException>(Action<TException> handler, Func<TException, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -64,6 +90,6 @@ namespace SimpleExceptionHandling
         /// <param name="exception"></param>
         /// <param name="throwIfNotHandled"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        void Catch(Exception exception, bool throwIfNotHandled = true);
+        IHandlingResult Catch(Exception exception, bool throwIfNotHandled = true);
     }
 }

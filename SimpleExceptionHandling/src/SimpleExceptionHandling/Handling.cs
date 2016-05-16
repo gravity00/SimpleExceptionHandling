@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
-
 namespace SimpleExceptionHandling
 {
     using System;
@@ -31,6 +30,59 @@ namespace SimpleExceptionHandling
     /// </summary>
     public static class Handling
     {
+        #region On
+
+        /// <summary>
+        /// Creates a new <see cref="IHandlingConfiguration"/> instance with the given handler.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The handling configuration</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IHandlingConfiguration On<TException>(
+            Action<TException, IHandlingResult> handler, Func<TException, IHandlingResult, bool> condition = null)
+            where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            return new HandlingConfiguration().On(handler, condition);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="IHandlingConfiguration"/> instance with the given handler.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The handling configuration</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IHandlingConfiguration On<TException>(
+            Action<TException> handler, Func<TException, IHandlingResult, bool> condition = null)
+            where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            return new HandlingConfiguration().On(handler, condition);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="IHandlingConfiguration"/> instance with the given handler.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The handling configuration</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IHandlingConfiguration On<TException>(
+            Action<TException, IHandlingResult> handler, Func<TException, bool> condition = null)
+            where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            return new HandlingConfiguration().On(handler, condition);
+        }
+
         /// <summary>
         /// Creates a new <see cref="IHandlingConfiguration"/> instance with the given handler.
         /// </summary>
@@ -47,20 +99,49 @@ namespace SimpleExceptionHandling
             return new HandlingConfiguration().On(handler, condition);
         }
 
-        /// <summary>
-        /// Creates a new <see cref="IHandlingConfiguration"/> instance with the given handler.
-        /// </summary>
-        /// <typeparam name="TException">The exception type</typeparam>
-        /// <param name="handler">The handler to be added</param>
-        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
-        /// <returns>The handling configuration</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        public static IHandlingConfiguration On<TException>(Func<TException, bool> handler, Func<TException, bool> condition = null)
-            where TException : Exception
-        {
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
+        #endregion
 
-            return new HandlingConfiguration().On(handler, condition);
+        #region IHandlingResult.State
+
+        /// <summary>
+        /// Gets the <see cref="IHandlingResult.State"/> as an extected type.
+        /// </summary>
+        /// <typeparam name="TState">The state type</typeparam>
+        /// <param name="result">The result to use</param>
+        /// <returns>The state object</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidCastException"></exception>
+#if NET20
+        public static TState State<TState>(IHandlingResult result)
+#else
+        public static TState State<TState>(this IHandlingResult result)
+#endif
+        {
+            if (result == null) throw new ArgumentNullException(nameof(result));
+
+            return (TState) result.State;
         }
+
+        /// <summary>
+        /// Sets the <see cref="IHandlingResult.State"/> with the given value.
+        /// </summary>
+        /// <typeparam name="TState">The state type</typeparam>
+        /// <param name="result">The result to use</param>
+        /// <param name="state">The state object</param>
+        /// <returns>The result after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+#if NET20
+        public static IHandlingResult State<TState>(IHandlingResult result, TState state)
+#else
+        public static IHandlingResult State<TState>(this IHandlingResult result, TState state)
+#endif
+        {
+            if (result == null) throw new ArgumentNullException(nameof(result));
+
+            result.State = state;
+            return result;
+        }
+
+        #endregion
     }
 }

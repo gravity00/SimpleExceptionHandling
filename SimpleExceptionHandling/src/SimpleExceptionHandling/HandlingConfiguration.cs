@@ -21,7 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
-
 namespace SimpleExceptionHandling
 {
     using System;
@@ -31,8 +30,92 @@ namespace SimpleExceptionHandling
     /// </summary>
     public class HandlingConfiguration : IHandlingConfiguration
     {
-        private Func<Exception, bool>[] _handlers = new Func<Exception, bool>[10];
+        private Action<Exception, IHandlingResult>[] _handlers = new Action<Exception, IHandlingResult>[10];
         private int _handlerCount;
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="IHandlingConfiguration.Catch"/>, it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public IHandlingConfiguration On<TException>(
+            Action<TException, IHandlingResult> handler, Func<TException, IHandlingResult, bool> condition = null)
+            where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            AddHandler((ex, result) =>
+            {
+                var castedException = ex as TException;
+                if (castedException == null)
+                    return;
+
+                if (condition == null || condition(castedException, result))
+                    handler(castedException, result);
+            });
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="IHandlingConfiguration.Catch"/>, it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public IHandlingConfiguration On<TException>(
+            Action<TException> handler, Func<TException, IHandlingResult, bool> condition = null)
+            where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            AddHandler((ex, result) =>
+            {
+                var castedException = ex as TException;
+                if (castedException == null)
+                    return;
+
+                if (condition == null || condition(castedException, result))
+                    handler(castedException);
+            });
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="IHandlingConfiguration.Catch"/>, it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public IHandlingConfiguration On<TException>(
+            Action<TException, IHandlingResult> handler, Func<TException, bool> condition = null)
+            where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            AddHandler((ex, result) =>
+            {
+                var castedException = ex as TException;
+                if (castedException == null)
+                    return;
+
+                if (condition == null || condition(castedException))
+                    handler(castedException, result);
+            });
+
+            return this;
+        }
 
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
@@ -43,52 +126,20 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(Action<TException> handler, Func<TException, bool> condition = null)
+        public IHandlingConfiguration On<TException>(
+            Action<TException> handler, Func<TException, bool> condition = null)
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
-            AddHandler(ex =>
+            AddHandler((ex, result) =>
             {
                 var castedException = ex as TException;
                 if (castedException == null)
-                    return false;
+                    return;
 
                 if (condition == null || condition(castedException))
-                {
                     handler(castedException);
-                    return true;
-                }
-                return false;
-            });
-
-            return this;
-        }
-
-        /// <summary>
-        /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="Catch"/> and returns true, it will be considered successfully handled.
-        /// </summary>
-        /// <typeparam name="TException">The exception type</typeparam>
-        /// <param name="handler">The handler to be added</param>
-        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
-        /// <returns>The configuration after changes</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(Func<TException, bool> handler, Func<TException, bool> condition = null)
-            where TException : Exception
-        {
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-
-            AddHandler(ex =>
-            {
-                var castedException = ex as TException;
-                if (castedException == null)
-                    return false;
-
-                if (condition == null || condition(castedException))
-                    return handler(castedException);
-
-                return false;
             });
 
             return this;
@@ -103,27 +154,28 @@ namespace SimpleExceptionHandling
         /// <param name="exception"></param>
         /// <param name="throwIfNotHandled"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Catch(Exception exception, bool throwIfNotHandled = true)
+        public IHandlingResult Catch(Exception exception, bool throwIfNotHandled = true)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
 
-            var handled = false;
-            for (var i = 0; !handled && i < _handlerCount; i++)
+            var result = new HandlingResult();
+            for (var i = 0; !result.Handled && i < _handlerCount; i++)
             {
-                handled = _handlers[i](exception);
+                _handlers[i](exception, result);
             }
 
-            if (!handled && throwIfNotHandled)
+            if (!result.Handled && throwIfNotHandled)
                 throw exception;
+            return result;
         }
 
         #region Private
 
-        private void AddHandler(Func<Exception, bool> handler)
+        private void AddHandler(Action<Exception, IHandlingResult> handler)
         {
             if (_handlerCount == _handlers.Length)
             {
-                var newHandlerCollection = new Func<Exception, bool>[_handlers.Length*2];
+                var newHandlerCollection = new Action<Exception, IHandlingResult>[_handlers.Length*2];
                 _handlers.CopyTo(newHandlerCollection, 0);
                 _handlers = newHandlerCollection;
             }
