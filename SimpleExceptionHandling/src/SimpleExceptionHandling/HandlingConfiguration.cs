@@ -51,11 +51,15 @@ namespace SimpleExceptionHandling
             AddHandler((ex, result) =>
             {
                 var castedException = ex as TException;
-                if (castedException == null)
-                    return;
-
-                if (condition == null || condition(castedException, result))
-                    handler(castedException, result);
+                if (castedException != null)
+                {
+                    if (condition == null || condition(castedException, result))
+                    {
+                        handler(castedException, result);
+                        return;
+                    }
+                }
+                result.Handled = false;
             });
 
             return this;
@@ -79,14 +83,16 @@ namespace SimpleExceptionHandling
             AddHandler((ex, result) =>
             {
                 var castedException = ex as TException;
-                if (castedException == null)
-                    return;
-
-                if (condition == null || condition(castedException, result))
+                if (castedException != null)
                 {
-                    handler(castedException);
-                    result.Handled = true;
+                    if (condition == null || condition(castedException, result))
+                    {
+                        handler(castedException);
+                        result.Handled = true;
+                        return;
+                    }
                 }
+                result.Handled = false;
             });
 
             return this;
@@ -110,11 +116,15 @@ namespace SimpleExceptionHandling
             AddHandler((ex, result) =>
             {
                 var castedException = ex as TException;
-                if (castedException == null)
-                    return;
-
-                if (condition == null || condition(castedException))
-                    handler(castedException, result);
+                if (castedException != null)
+                {
+                    if (condition == null || condition(castedException))
+                    {
+                        handler(castedException, result);
+                        return;
+                    }
+                }
+                result.Handled = false;
             });
 
             return this;
@@ -138,14 +148,16 @@ namespace SimpleExceptionHandling
             AddHandler((ex, result) =>
             {
                 var castedException = ex as TException;
-                if (castedException == null)
-                    return;
-
-                if (condition == null || condition(castedException))
+                if (castedException != null)
                 {
-                    handler(castedException);
-                    result.Handled = true;
+                    if (condition == null || condition(castedException))
+                    {
+                        handler(castedException);
+                        result.Handled = true;
+                        return;
+                    }
                 }
+                result.Handled = false;
             });
 
             return this;
