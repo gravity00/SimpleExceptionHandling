@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimpleExceptionHandling", "src\SimpleExceptionHandling\SimpleExceptionHandling.xproj", "{7C547964-762F-4E2A-9473-E3FB5D1ADCCB}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimpleExceptionHandling.Examples", "src\SimpleExceptionHandling.Examples\SimpleExceptionHandling.Examples.xproj", "{012218D6-2181-4885-BB01-4173152F1C41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +24,16 @@ Global
 		{7C547964-762F-4E2A-9473-E3FB5D1ADCCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C547964-762F-4E2A-9473-E3FB5D1ADCCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C547964-762F-4E2A-9473-E3FB5D1ADCCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{012218D6-2181-4885-BB01-4173152F1C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{012218D6-2181-4885-BB01-4173152F1C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{012218D6-2181-4885-BB01-4173152F1C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{012218D6-2181-4885-BB01-4173152F1C41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7C547964-762F-4E2A-9473-E3FB5D1ADCCB} = {F8FF3B4B-266E-45C6-ABD1-5B68FFF7733C}
+		{012218D6-2181-4885-BB01-4173152F1C41} = {F8FF3B4B-266E-45C6-ABD1-5B68FFF7733C}
 	EndGlobalSection
 EndGlobal
