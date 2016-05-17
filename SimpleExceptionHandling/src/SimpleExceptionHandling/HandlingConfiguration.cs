@@ -118,7 +118,7 @@ namespace SimpleExceptionHandling
                 _handlers[i](exception, result);
             }
 
-            if (!result.Handled && throwIfNotHandled)
+            if (throwIfNotHandled && !result.Handled)
                 throw exception;
             return result;
         }
