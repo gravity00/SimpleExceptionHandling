@@ -1,6 +1,6 @@
 ﻿{
-  "version": "1.0.0-rc01",
-  "title": "Simple Exception Handling",
+  "version": "1.0.0-alpha02",
+  "title": "SimpleExceptionHandling",
   "summary": "Library that helps developers to handle exceptions outside catch blocks.",
   "description": "Library that helps developers to handle exceptions outside catch blocks. Typical usages are global exception handlers.",
   "authors": [ "João Simões" ],
