@@ -104,8 +104,9 @@ namespace SimpleExceptionHandling
         /// <remarks>
         /// Order will be preserved when running the handlers.
         /// </remarks>
-        /// <param name="exception"></param>
-        /// <param name="throwIfNotHandled"></param>
+        /// <param name="exception">The exception to be catched</param>
+        /// <param name="throwIfNotHandled">If not handled, should the exception be thrown</param>
+        /// <returns>The handling result</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public IHandlingResult Catch(Exception exception, bool throwIfNotHandled = true)
         {
