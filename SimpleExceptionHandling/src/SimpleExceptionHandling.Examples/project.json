@@ -4,7 +4,7 @@
   "summary": "Example code for SimpleExceptionHandling library.",
   "description": "Example code for SimpleExceptionHandling library.",
   "authors": [ "João Simões" ],
-  "tags": [ "exception", "handler" ],
+  "tags": [ "exception", "handler", "examples" ],
   "projectUrl": "https://github.com/gravity00/SimpleExceptionHandling",
   "licenseUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/LICENSE",
   "iconUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/SimpleExceptionHandling-Logo.png",
@@ -17,6 +17,9 @@
   },
 
   "dependencies": {
+    "SimpleExceptionHandling": {
+      "target": "project"
+    } 
   },
 
   "commands": {
@@ -24,8 +27,7 @@
   },
 
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": {
+    "dnxcore5": {
       "dependencies": {
         "Microsoft.CSharp": "4.0.1-beta-23516",
         "System.Collections": "4.0.11-beta-23516",
@@ -35,4 +37,5 @@
       }
     }
   }
+  
 }
