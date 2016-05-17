@@ -21,7 +21,7 @@ This library is compatible with the folowing frameworks:
 * .NET Portable Subset 4 (.NETPortable,Version=v4.0,Profile=Profile328)
 * DNX Core (> DNXCore 5.0)
 
-## Usage
+## Tipical usage
 
 This is a usage example for Web API 2:
 
@@ -83,4 +83,39 @@ public class GlobalExceptionHandler : ExceptionHandler
 		context.Result = result;
 	}
 }
+```
+
+### Basic usage
+
+Here is a simple example of handling exceptions by their types:
+
+```
+        public static void BasicExceptionHandling(string param01)
+        {
+            string handlerName = null;
+            var configuration =
+                Handling
+                    .On<ArgumentNullException>(ex =>
+                    {
+                        handlerName = $"ArgumentNullException[ParamName={ex.ParamName}]";
+                    })
+                    .On<ArgumentException>(ex =>
+                    {
+                        handlerName = $"ArgumentException[ParamName={ex.ParamName}]";
+                    });
+
+            configuration.Catch(new ArgumentNullException(nameof(param01)));
+            Console.WriteLine($"Handler -> '{handlerName}'");
+            //  Handler -> 'ArgumentNullException[ParamName=param01]'
+
+            handlerName = null;
+            configuration.Catch(new ArgumentOutOfRangeException(nameof(param01)));
+            Console.WriteLine($"Handler -> '{handlerName}'");
+            //  Handler -> 'ArgumentException[ParamName=param01]'
+
+            handlerName = null;
+            configuration.Catch(new Exception(), false);
+            Console.WriteLine($"Handler -> '{handlerName}'");
+            //  Handler -> ''
+        }
 ```
