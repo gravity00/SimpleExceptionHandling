@@ -1,10 +1,16 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "SimpleExceptionHandling.Examples Console Application",
-  "authors": [ "Joao.Simoes" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+  "title": "Simple Exception Handling Examples",
+  "summary": "Example code for SimpleExceptionHandling library.",
+  "description": "Example code for SimpleExceptionHandling library.",
+  "authors": [ "João Simões" ],
+  "tags": [ "exception", "handler" ],
+  "projectUrl": "https://github.com/gravity00/SimpleExceptionHandling",
+  "licenseUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/LICENSE",
+  "iconUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/SimpleExceptionHandling-Logo.png",
+  "language": "en-US",
+  "copyright": "Copyright © 2016 João Simões",
+  "releaseNotes": "",
 
   "compilationOptions": {
     "emitEntryPoint": true
