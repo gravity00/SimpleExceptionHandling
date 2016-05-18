@@ -105,14 +105,15 @@ namespace SimpleExceptionHandling
         /// Order will be preserved when running the handlers.
         /// </remarks>
         /// <param name="exception">The exception to be catched</param>
+        /// <param name="parameter">An optional handling parameter</param>
         /// <param name="throwIfNotHandled">If not handled, should the exception be thrown</param>
         /// <returns>The handling result</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingResult Catch(Exception exception, bool throwIfNotHandled = true)
+        public IHandlingResult Catch(Exception exception, object parameter = null, bool throwIfNotHandled = true)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
 
-            var result = new HandlingResult();
+            var result = new HandlingResult(parameter);
             for (var i = 0; !result.Handled && i < _handlerCount; i++)
             {
                 _handlers[i](exception, result);

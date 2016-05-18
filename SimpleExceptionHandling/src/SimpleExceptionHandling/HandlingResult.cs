@@ -29,6 +29,20 @@ namespace SimpleExceptionHandling
     public class HandlingResult : IHandlingResult
     {
         /// <summary>
+        /// Creates a new instance
+        /// </summary>
+        /// <param name="parameter">The handling operation parameter</param>
+        public HandlingResult(object parameter = null)
+        {
+            Parameter = parameter;
+        }
+
+        /// <summary>
+        /// The parameter object for the handling operation
+        /// </summary>
+        public object Parameter { get; }
+
+        /// <summary>
         /// The state object for the handling operation
         /// </summary>
         public object State { get; set; }

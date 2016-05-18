@@ -29,6 +29,11 @@ namespace SimpleExceptionHandling
     public interface IHandlingResult
     {
         /// <summary>
+        /// The parameter object for the handling operation
+        /// </summary>
+        object Parameter { get; }
+
+        /// <summary>
         /// The state object for the handling operation
         /// </summary>
         object State { get; set; }
