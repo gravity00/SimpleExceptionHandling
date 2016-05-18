@@ -88,17 +88,18 @@ namespace SimpleExceptionHandling.Examples
                         r.Handled = true;
                     });
 
-            IHandlingResult result;
-
-            result = configuration.Catch(new ArgumentNullException(nameof(param01)));
+            var result = 
+                configuration.Catch(new ArgumentNullException(nameof(param01)));
             Console.WriteLine($"Handler -> '{result.State}'");
             //  Handler -> 'ArgumentException[ParamName=param01]'
 
-            result = configuration.Catch(new ArgumentOutOfRangeException(nameof(param01)));
+            result = 
+                configuration.Catch(new ArgumentOutOfRangeException(nameof(param01)));
             Console.WriteLine($"Handler -> '{result.State}'");
             //  Handler -> 'ArgumentException[ParamName=param01]'
 
-            result = configuration.Catch(new Exception());
+            result = 
+                configuration.Catch(new Exception());
             Console.WriteLine($"Handler -> '{result.State}'");
             //  Handler -> 'Exception'
         }
@@ -110,11 +111,11 @@ namespace SimpleExceptionHandling.Examples
                 Handling
                     .On<ArgumentNullException>(ex =>
                     {
-                        handlerName = $"ArgumentNullException[ParamName=param01]";
+                        handlerName = "ArgumentNullException[ParamName=param01]";
                     }, ex => ex.ParamName == nameof(param01))
                     .On<ArgumentNullException>(ex =>
                     {
-                        handlerName = $"ArgumentNullException[ParamName=param02]";
+                        handlerName = "ArgumentNullException[ParamName=param02]";
                     }, ex => ex.ParamName == nameof(param02))
                     .On<ArgumentNullException>(ex =>
                     {
