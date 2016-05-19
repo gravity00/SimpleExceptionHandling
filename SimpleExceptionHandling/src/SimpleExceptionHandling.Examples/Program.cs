@@ -74,9 +74,11 @@ namespace SimpleExceptionHandling.Examples
                 Handling
                     .On<ArgumentNullException>((ex, i) =>
                     {
-                        var ret =
-                            $"ArgumentNullException[ParamName={ex.ParamName}, InputParameter={i.Parameter<int>()}]";
-                        return new HandlingResult(false, ret);
+                        //  this handler will be invoked, but says to be ignored
+                        
+                        //return new HandlingResult(false);
+                        //return HandlingResult.False;
+                        return false;
                     })
                     .On<ArgumentException>((ex, i) =>
                     {
