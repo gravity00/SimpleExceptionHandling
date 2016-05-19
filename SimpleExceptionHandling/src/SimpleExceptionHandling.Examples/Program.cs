@@ -33,7 +33,7 @@ namespace SimpleExceptionHandling.Examples
             BasicExceptionHandling(null);
 
             Console.WriteLine();
-            ResultExceptionHandling(null);
+            InputAndResultExceptionHandling(null);
 
             Console.WriteLine();
             ConditionalExceptionHandling(null, null, null);
@@ -68,7 +68,7 @@ namespace SimpleExceptionHandling.Examples
             //  Handler -> ''
         }
 
-        public static void ResultExceptionHandling(string param01)
+        public static void InputAndResultExceptionHandling(string param01)
         {
             var configuration =
                 Handling
