@@ -23,39 +23,35 @@
 #endregion
 namespace SimpleExceptionHandling
 {
+    using System;
+
     /// <summary>
-    /// The handling result.
+    /// The handling input information.
     /// </summary>
-    public class HandlingResult : IHandlingResult
+    public class HandlingInput : IHandlingInput
     {
         /// <summary>
-        /// Was the exception handled?
+        /// The exception to be handled
         /// </summary>
-        public bool Handled { get; }
+        public Exception Exception { get; }
 
         /// <summary>
-        /// The result object for the handling operation
+        /// The parameter object for the handling operation
         /// </summary>
-        public object Result { get; }
-
-        /// <summary>
-        /// Creates a new instance.
-        /// The property <see cref="Handled"/> will be set to true.
-        /// </summary>
-        public HandlingResult()
-        {
-            Handled = true;
-        }
+        public object Parameter { get; }
 
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="handled">Was the exception handled?</param>
-        /// <param name="result">An optional result object</param>
-        public HandlingResult(bool handled, object result = null)
+        /// <param name="exception">The exception to be handled</param>
+        /// <param name="parameter">An optional input parameter</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public HandlingInput(Exception exception, object parameter = null)
         {
-            Handled = handled;
-            Result = result;
+            if (exception == null) throw new ArgumentNullException(nameof(exception));
+
+            Exception = exception;
+            Parameter = parameter;
         }
     }
 }

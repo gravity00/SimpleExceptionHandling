@@ -24,23 +24,18 @@
 namespace SimpleExceptionHandling
 {
     /// <summary>
-    /// Represents the result of an handling operation
+    /// The handling result.
     /// </summary>
     public interface IHandlingResult
     {
         /// <summary>
-        /// The parameter object for the handling operation
-        /// </summary>
-        object Parameter { get; }
-
-        /// <summary>
-        /// The state object for the handling operation
-        /// </summary>
-        object State { get; set; }
-
-        /// <summary>
         /// Was the exception handled?
         /// </summary>
-        bool Handled { get; set; }
+        bool Handled { get; }
+
+        /// <summary>
+        /// The result object for the handling operation
+        /// </summary>
+        object Result { get; }
     }
 }

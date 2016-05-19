@@ -1,7 +1,7 @@
-Ôªø#region License
+#region License
 // The MIT License (MIT)
 // 
-// Copyright (c) 2016 Jo√£o Sim√µes
+// Copyright (c) 2016 Jo„o Simıes
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,39 +23,21 @@
 #endregion
 namespace SimpleExceptionHandling
 {
+    using System;
+
     /// <summary>
-    /// The handling result.
+    /// The handling input information.
     /// </summary>
-    public class HandlingResult : IHandlingResult
+    public interface IHandlingInput
     {
         /// <summary>
-        /// Was the exception handled?
+        /// The exception to be handled
         /// </summary>
-        public bool Handled { get; }
+        Exception Exception { get; }
 
         /// <summary>
-        /// The result object for the handling operation
+        /// The parameter object for the handling operation
         /// </summary>
-        public object Result { get; }
-
-        /// <summary>
-        /// Creates a new instance.
-        /// The property <see cref="Handled"/> will be set to true.
-        /// </summary>
-        public HandlingResult()
-        {
-            Handled = true;
-        }
-
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        /// <param name="handled">Was the exception handled?</param>
-        /// <param name="result">An optional result object</param>
-        public HandlingResult(bool handled, object result = null)
-        {
-            Handled = handled;
-            Result = result;
-        }
+        object Parameter { get; }
     }
 }
