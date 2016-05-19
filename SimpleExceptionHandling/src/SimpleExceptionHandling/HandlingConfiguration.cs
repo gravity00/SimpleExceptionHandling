@@ -54,10 +54,10 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return new HandlingResult(false);
+                    return HandlingResult.False;
 
                 handler(castedException, i);
-                return new HandlingResult(true);
+                return HandlingResult.True;
             });
 
             return this;
@@ -81,7 +81,7 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return new HandlingResult(false);
+                    return HandlingResult.False;
                 
                 return new HandlingResult(handler(castedException, i));
             });
@@ -108,7 +108,7 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return new HandlingResult(false);
+                    return HandlingResult.False;
 
                 return handler(castedException, i);
             });
@@ -134,10 +134,10 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return new HandlingResult(false);
+                    return HandlingResult.False;
 
                 handler(castedException);
-                return new HandlingResult(true);
+                return HandlingResult.True;
             });
 
             return this;
@@ -161,7 +161,7 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return new HandlingResult(false);
+                    return HandlingResult.False;
 
                 return new HandlingResult(handler(castedException));
             });
@@ -188,7 +188,7 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return new HandlingResult(false);
+                    return HandlingResult.False;
 
                 return handler(castedException);
             });

@@ -29,6 +29,16 @@ namespace SimpleExceptionHandling
     public class HandlingResult : IHandlingResult
     {
         /// <summary>
+        /// Global instance with <see cref="IHandlingResult.Handled"/> set to false.
+        /// </summary>
+        public static IHandlingResult False { get; } = new HandlingResult(false);
+
+        /// <summary>
+        /// Global instance with <see cref="IHandlingResult.Handled"/> set to true.
+        /// </summary>
+        public static IHandlingResult True { get; } = new HandlingResult(true);
+
+        /// <summary>
         /// Was the exception handled?
         /// </summary>
         public bool Handled { get; }
