@@ -43,7 +43,7 @@ namespace SimpleExceptionHandling.Examples
         {
             string handlerName = null;
             var configuration =
-                Handling
+                Handling.Prepare()
                     .On<ArgumentNullException>(ex =>
                     {
                         handlerName = $"ArgumentNullException[ParamName={ex.ParamName}]";
@@ -71,8 +71,8 @@ namespace SimpleExceptionHandling.Examples
         public static void InputAndResultExceptionHandling(string param01)
         {
             var configuration =
-                Handling
-                    .On<ArgumentNullException, int, string>((ex, i) =>
+                Handling.Prepare<int, string>()
+                    .On<ArgumentNullException>((ex, i) =>
                     {
                         //  this handler will be invoked, but says to be ignored
 
@@ -113,7 +113,7 @@ namespace SimpleExceptionHandling.Examples
         {
             string handlerName = null;
             var configuration =
-                Handling
+                Handling.Prepare()
                     .On<ArgumentNullException>(ex =>
                     {
                         handlerName = "ArgumentNullException[ParamName=param01]";

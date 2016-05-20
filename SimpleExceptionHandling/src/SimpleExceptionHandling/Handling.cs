@@ -28,8 +28,32 @@ namespace SimpleExceptionHandling
     /// <summary>
     /// Exposes static methods to fluently configure <see cref="IHandlingConfiguration"/> instances.
     /// </summary>
-    public static partial class Handling
+    public static class Handling
     {
+        #region Prepare
+
+        /// <summary>
+        /// Prepares a new <see cref="IHandlingConfiguration{TParameter,TResult}"/> instance to be configured.
+        /// </summary>
+        /// <typeparam name="TParameter">The parameter type</typeparam>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <returns>The handling configuration instance</returns>
+        public static IHandlingConfiguration<TParameter, TResult> Prepare<TParameter, TResult>()
+        {
+            return new HandlingConfiguration<TParameter, TResult>();
+        }
+
+        /// <summary>
+        /// Prepares a new <see cref="IHandlingConfiguration"/> instance to be configured.
+        /// </summary>
+        /// <returns>The handling configuration instance</returns>
+        public static IHandlingConfiguration Prepare()
+        {
+            return new HandlingConfiguration();
+        }
+
+        #endregion
+
         #region IHandlingResult.Result
 
         /// <summary>
