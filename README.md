@@ -30,6 +30,48 @@ using SimpleExceptionHandling;
 
 public class GlobalExceptionHandler : ExceptionHandler
 {
+	private static readonly IHandlingConfiguration<ExceptionHandlerContext, ResponseMessageResult>
+		HandlingConfiguration =
+			Handling.Prepare<ExceptionHandlerContext, ResponseMessageResult>()
+				.On<ValidationException>((ex, i) =>
+				{
+					var messages = new List<string>();
+					foreach (var error in ex.ValidationErrors)
+						messages.AddRange(error.Messages);
+
+					return Handling.Handled(
+						i.Parameter.Request.CreateBadRequestResult(
+							new[]
+							{
+								new KeyValuePair<string, string[]>(string.Empty, messages.ToArray())
+							}));
+				})
+				.On<BusinessException>((ex, i) =>
+				{
+					return Handling.Handled(
+						i.Parameter.Request.CreateConflictResult(ex.Message));
+				})
+				.On<GenericException>((ex, i) =>
+				{
+					return Handling.Handled(
+						i.Parameter.Request.CreateInternalServerErrorResult(ex.Message));
+				})
+				.On<ExternalServiceException>((ex, i) =>
+				{
+					return Handling.Handled(
+						i.Parameter.Request.CreateBadGatewayResult());
+				})
+				.On<TimeoutException>((ex, i) =>
+				{
+					return Handling.Handled(
+						i.Parameter.Request.CreateGatewayTimeoutResult());
+				})
+				.On<NotImplementedException>((ex, i) =>
+				{
+					return Handling.Handled(
+						i.Parameter.Request.CreateNotImplementedResult());
+				});
+
 	public override bool ShouldHandle(ExceptionHandlerContext context)
 	{
 		return true;
@@ -37,50 +79,15 @@ public class GlobalExceptionHandler : ExceptionHandler
 
 	public override void Handle(ExceptionHandlerContext context)
 	{
-		ResponseMessageResult result = null;
-
-		Handling
-			.On<ValidationException>(ex =>
-			{
-				var messages = new List<string>();
-				foreach (var error in ex.ValidationErrors)
-					messages.AddRange(error.Messages);
-
-				result =
-					context.Request.CreateBadRequestResult(
-						new[]
-						{
-							new KeyValuePair<string, string[]>(string.Empty, messages.ToArray())
-						});
-			})
-			.On<BusinessException>(ex =>
-			{
-				result = context.Request.CreateConflictResult(ex.Message);
-			})
-			.On<GenericException>(ex =>
-			{
-				result = context.Request.CreateInternalServerErrorResult(ex.Message);
-			})
-			.On<ExternalServiceException>(ex =>
-			{
-				result = context.Request.CreateBadGatewayResult();
-			})
-			.On<TimeoutException>(ex =>
-			{
-				result = context.Request.CreateGatewayTimeoutResult();
-			})
-			.On<NotImplementedException>(ex =>
-			{
-				result = context.Request.CreateNotImplementedResult();
-			})
-			.Catch(context.Exception, throwIfNotHandled: false);
-
-		if (result == null)
+		var result = HandlingConfiguration.Catch(context.Exception, context, false);
+		if (result.Handled)
+		{
+			context.Result = result.Result;
+		}
+		else
 		{
 			base.Handle(context);
-			return;
 		}
-		context.Result = result;
 	}
 }
 ```
