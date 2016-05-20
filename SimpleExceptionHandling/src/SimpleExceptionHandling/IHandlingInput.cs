@@ -28,7 +28,8 @@ namespace SimpleExceptionHandling
     /// <summary>
     /// The handling input information.
     /// </summary>
-    public interface IHandlingInput
+    /// <typeparam name="TParameter">The parameter type</typeparam>
+    public interface IHandlingInput<out TParameter>
     {
         /// <summary>
         /// The exception to be handled
@@ -38,6 +39,14 @@ namespace SimpleExceptionHandling
         /// <summary>
         /// The parameter object for the handling operation
         /// </summary>
-        object Parameter { get; }
+        TParameter Parameter { get; }
+    }
+
+    /// <summary>
+    /// The handling input information.
+    /// </summary>
+    public interface IHandlingInput : IHandlingInput<object>
+    {
+        
     }
 }

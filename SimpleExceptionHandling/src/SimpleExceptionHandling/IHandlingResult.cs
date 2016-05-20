@@ -26,7 +26,8 @@ namespace SimpleExceptionHandling
     /// <summary>
     /// The handling result.
     /// </summary>
-    public interface IHandlingResult
+    /// <typeparam name="TResult">The result type</typeparam>
+    public interface IHandlingResult<out TResult>
     {
         /// <summary>
         /// Was the exception handled?
@@ -36,6 +37,14 @@ namespace SimpleExceptionHandling
         /// <summary>
         /// The result object for the handling operation
         /// </summary>
-        object Result { get; }
+        TResult Result { get; }
+    }
+
+    /// <summary>
+    /// The handling result.
+    /// </summary>
+    public interface IHandlingResult : IHandlingResult<object>
+    {
+
     }
 }
