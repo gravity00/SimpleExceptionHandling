@@ -72,37 +72,35 @@ namespace SimpleExceptionHandling.Examples
         {
             var configuration =
                 Handling
-                    .On<ArgumentNullException>((ex, i) =>
+                    .On<ArgumentNullException, int, string>((ex, i) =>
                     {
                         //  this handler will be invoked, but says to be ignored
-                        
+
                         //return new HandlingResult(false);
                         //return HandlingResult.False;
                         return false;
                     })
                     .On<ArgumentException>((ex, i) =>
                     {
-                        var ret =
-                            $"ArgumentException[ParamName={ex.ParamName}, InputParameter={i.Parameter<int>()}]";
-                        return new HandlingResult(true, ret);
+                        var ret = $"ArgumentException[ParamName={ex.ParamName}, InputParameter={i.Parameter}]";
+                        return new HandlingResult<string>(true, ret);
                     })
                     .On<Exception>((ex, i) =>
                     {
-                        var ret =
-                            $"Exception[InputParameter={i.Parameter}]";
-                        return new HandlingResult(true, ret);
+                        var ret = $"Exception[InputParameter={i.Parameter}]";
+                        return new HandlingResult<string>(true, ret);
                     });
 
             var result = 
                 configuration.Catch(
                     new ArgumentNullException(nameof(param01)), 987987);
-            Console.WriteLine($"Handler -> '{result.Result<string>()}'");
+            Console.WriteLine($"Handler -> '{result.Result}'");
             //  Handler -> 'ArgumentException[ParamName=param01, InputParameter=987987]'
 
             result = 
                 configuration.Catch(
                     new ArgumentOutOfRangeException(nameof(param01)), 123123);
-            Console.WriteLine($"Handler -> '{result.Result<string>()}'");
+            Console.WriteLine($"Handler -> '{result.Result}'");
             //  Handler -> 'ArgumentException[ParamName=param01, InputParameter=123123]'
 
             result =
