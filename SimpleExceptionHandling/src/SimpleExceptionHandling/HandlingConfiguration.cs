@@ -28,10 +28,12 @@ namespace SimpleExceptionHandling
     /// <summary>
     /// The exception handling configuration.
     /// </summary>
-    public class HandlingConfiguration : IHandlingConfiguration
+    /// <typeparam name="TParameter">The parameter type</typeparam>
+    /// <typeparam name="TResult">The result type</typeparam>
+    public class HandlingConfiguration<TParameter, TResult> : IHandlingConfiguration<TParameter, TResult>
     {
-        private Func<Exception, IHandlingInput<object>, IHandlingResult<object>>[] _handlers = 
-            new Func<Exception, IHandlingInput<object>, IHandlingResult<object>>[10];
+        private Func<Exception, IHandlingInput<TParameter>, IHandlingResult<TResult>>[] _handlers = 
+            new Func<Exception, IHandlingInput<TParameter>, IHandlingResult<TResult>>[10];
         private int _handlerCount;
 
         #region On
@@ -45,9 +47,9 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(
-            Action<TException, IHandlingInput<object>> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null) 
+        public IHandlingConfiguration<TParameter, TResult> On<TException>(
+            Action<TException, IHandlingInput<TParameter>> handler, 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) 
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -56,10 +58,10 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return HandlingResult.False;
+                    return new HandlingResult<TResult>(false);
 
                 handler(castedException, i);
-                return HandlingResult.True;
+                return new HandlingResult<TResult>(true);
             });
 
             return this;
@@ -74,9 +76,9 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput<object>, bool> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null) 
+        public IHandlingConfiguration<TParameter, TResult> On<TException>(
+            Func<TException, IHandlingInput<TParameter>, bool> handler, 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) 
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -85,9 +87,9 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return HandlingResult.False;
+                    return new HandlingResult<TResult>(false);
                 
-                return new HandlingResult(handler(castedException, i));
+                return new HandlingResult<TResult>(handler(castedException, i));
             });
 
             return this;
@@ -103,9 +105,9 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput<object>, IHandlingResult<object>> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null) 
+        public IHandlingConfiguration<TParameter, TResult> On<TException>(
+            Func<TException, IHandlingInput<TParameter>, IHandlingResult<TResult>> handler, 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) 
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -114,7 +116,7 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return HandlingResult.False;
+                    return new HandlingResult<TResult>(false);
 
                 return handler(castedException, i);
             });
@@ -131,9 +133,9 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(
+        public IHandlingConfiguration<TParameter, TResult> On<TException>(
             Action<TException> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) 
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -142,10 +144,10 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return HandlingResult.False;
+                    return new HandlingResult<TResult>(false);
 
                 handler(castedException);
-                return HandlingResult.True;
+                return new HandlingResult<TResult>(true);
             });
 
             return this;
@@ -160,9 +162,9 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(
+        public IHandlingConfiguration<TParameter, TResult> On<TException>(
             Func<TException, bool> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) 
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -171,9 +173,9 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return HandlingResult.False;
+                    return new HandlingResult<TResult>(false);
 
-                return new HandlingResult(handler(castedException));
+                return new HandlingResult<TResult>(handler(castedException));
             });
 
             return this;
@@ -189,9 +191,9 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingResult<object>> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null) 
+        public IHandlingConfiguration<TParameter, TResult> On<TException>(
+            Func<TException, IHandlingResult<TResult>> handler, 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) 
             where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
@@ -200,7 +202,7 @@ namespace SimpleExceptionHandling
             {
                 var castedException = ex as TException;
                 if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return HandlingResult.False;
+                    return new HandlingResult<TResult>(false);
 
                 return handler(castedException);
             });
@@ -221,11 +223,12 @@ namespace SimpleExceptionHandling
         /// <param name="throwIfNotHandled">If not handled, should the exception be thrown</param>
         /// <returns>The handling result</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingResult<object> Catch(Exception exception, object parameter = null, bool throwIfNotHandled = true)
+        public IHandlingResult<TResult> Catch(
+            Exception exception, TParameter parameter = default(TParameter), bool throwIfNotHandled = true)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
 
-            var input = new HandlingInput(exception, parameter);
+            var input = new HandlingInput<TParameter>(exception, parameter);
             for (var i = 0; i < _handlerCount; i++)
             {
                 var result = _handlers[i](exception, input);
@@ -235,17 +238,17 @@ namespace SimpleExceptionHandling
 
             if (throwIfNotHandled)
                 throw exception;
-            return HandlingResult.False;
+            return new HandlingResult<TResult>(false);
         }
 
         #region Private
 
-        private void AddHandler(Func<Exception, IHandlingInput<object>, IHandlingResult<object>> handler)
+        private void AddHandler(Func<Exception, IHandlingInput<TParameter>, IHandlingResult<TResult>> handler)
         {
             if (_handlerCount == _handlers.Length)
             {
                 var newHandlerCollection = 
-                    new Func<Exception, IHandlingInput<object>, IHandlingResult<object>>[_handlers.Length * 2];
+                    new Func<Exception, IHandlingInput<TParameter>, IHandlingResult<TResult>>[_handlers.Length * 2];
                 _handlers.CopyTo(newHandlerCollection, 0);
                 _handlers = newHandlerCollection;
             }
@@ -255,5 +258,13 @@ namespace SimpleExceptionHandling
         }
 
         #endregion
+    }
+
+    /// <summary>
+    /// The exception handling configuration.
+    /// </summary>
+    public class HandlingConfiguration : HandlingConfiguration<object, object>, IHandlingConfiguration
+    {
+        
     }
 }

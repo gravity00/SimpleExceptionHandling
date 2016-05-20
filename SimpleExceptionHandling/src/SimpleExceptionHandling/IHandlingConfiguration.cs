@@ -43,7 +43,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(
+        IHandlingConfiguration<TParameter, TResult> On<TException>(
             Action<TException, IHandlingInput<TParameter>> handler, 
             Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
@@ -57,7 +57,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(
+        IHandlingConfiguration<TParameter, TResult> On<TException>(
             Func<TException, IHandlingInput<TParameter>, bool> handler, 
             Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
@@ -72,7 +72,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(
+        IHandlingConfiguration<TParameter, TResult> On<TException>(
             Func<TException, IHandlingInput<TParameter>, IHandlingResult<TResult>> handler, 
             Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
@@ -86,7 +86,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(
+        IHandlingConfiguration<TParameter, TResult> On<TException>(
             Action<TException> handler, Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
 
@@ -99,7 +99,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(
+        IHandlingConfiguration<TParameter, TResult> On<TException>(
             Func<TException, bool> handler, Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
 
@@ -113,7 +113,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingConfiguration On<TException>(
+        IHandlingConfiguration<TParameter, TResult> On<TException>(
             Func<TException, IHandlingResult<TResult>> handler, 
             Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
@@ -131,7 +131,8 @@ namespace SimpleExceptionHandling
         /// <param name="throwIfNotHandled">If not handled, should the exception be thrown</param>
         /// <returns>The handling result</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingResult<TResult> Catch(Exception exception, object parameter = null, bool throwIfNotHandled = true);
+        IHandlingResult<TResult> Catch(
+            Exception exception, TParameter parameter = default(TParameter), bool throwIfNotHandled = true);
     }
 
     /// <summary>

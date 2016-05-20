@@ -41,7 +41,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static IHandlingConfiguration On<TException>(
+        public static IHandlingConfiguration<object, object> On<TException>(
             Action<TException, IHandlingInput<object>> handler, 
             Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
         {
@@ -59,7 +59,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static IHandlingConfiguration On<TException>(
+        public static IHandlingConfiguration<object, object> On<TException>(
             Func<TException, IHandlingInput<object>, bool> handler, 
             Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
         {
@@ -78,7 +78,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static IHandlingConfiguration On<TException>(
+        public static IHandlingConfiguration<object, object> On<TException>(
             Func<TException, IHandlingInput<object>, IHandlingResult<object>> handler, 
             Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
         {
@@ -96,7 +96,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static IHandlingConfiguration On<TException>(
+        public static IHandlingConfiguration<object, object> On<TException>(
             Action<TException> handler, Func<TException, IHandlingInput<object>, bool> condition = null) 
             where TException : Exception
         {
@@ -114,7 +114,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static IHandlingConfiguration On<TException>(
+        public static IHandlingConfiguration<object, object> On<TException>(
             Func<TException, bool> handler, 
             Func<TException, IHandlingInput<object>, bool> condition = null) 
             where TException : Exception
@@ -134,7 +134,7 @@ namespace SimpleExceptionHandling
         /// <param name="condition">An optional condition to be checked if the handler must be used</param>
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static IHandlingConfiguration On<TException>(
+        public static IHandlingConfiguration<object, object> On<TException>(
             Func<TException, IHandlingResult<object>> handler, Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));

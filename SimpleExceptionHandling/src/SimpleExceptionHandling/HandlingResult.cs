@@ -73,12 +73,12 @@ namespace SimpleExceptionHandling
         /// <summary>
         /// Global instance with <see cref="IHandlingResult.Handled"/> set to false.
         /// </summary>
-        public static IHandlingResult False { get; } = new HandlingResult(false);
+        public static IHandlingResult<object> False { get; } = new HandlingResult(false);
 
         /// <summary>
         /// Global instance with <see cref="IHandlingResult.Handled"/> set to true.
         /// </summary>
-        public static IHandlingResult True { get; } = new HandlingResult(true);
+        public static IHandlingResult<object> True { get; } = new HandlingResult(true);
 
         #endregion
 
