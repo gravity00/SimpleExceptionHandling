@@ -90,34 +90,34 @@ public class GlobalExceptionHandler : ExceptionHandler
 Here is a simple example of handling exceptions by their types:
 
 ```csharp
-        public static void BasicExceptionHandling(string param01)
-        {
-            string handlerName = null;
-            var configuration =
-                Handling
-                    .On<ArgumentNullException>(ex =>
-                    {
-                        handlerName = $"ArgumentNullException[ParamName={ex.ParamName}]";
-                    })
-                    .On<ArgumentException>(ex =>
-                    {
-                        handlerName = $"ArgumentException[ParamName={ex.ParamName}]";
-                    });
+public static void BasicExceptionHandling(string param01)
+{
+	string handlerName = null;
+	var configuration =
+		Handling.Prepare()
+			.On<ArgumentNullException>(ex =>
+			{
+				handlerName = $"ArgumentNullException[ParamName={ex.ParamName}]";
+			})
+			.On<ArgumentException>(ex =>
+			{
+				handlerName = $"ArgumentException[ParamName={ex.ParamName}]";
+			});
 
-            configuration.Catch(new ArgumentNullException(nameof(param01)));
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> 'ArgumentNullException[ParamName=param01]'
+	var result = configuration.Catch(new ArgumentNullException(nameof(param01)));
+	Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+	//  Handler[Handled=True] -> 'ArgumentNullException[ParamName=param01]'
 
-            handlerName = null;
-            configuration.Catch(new ArgumentOutOfRangeException(nameof(param01)));
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> 'ArgumentException[ParamName=param01]'
+	handlerName = null;
+	result = configuration.Catch(new ArgumentOutOfRangeException(nameof(param01)));
+	Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+	//  Handler[Handled=True] -> 'ArgumentException[ParamName=param01]'
 
-            handlerName = null;
-            configuration.Catch(new Exception(), throwIfNotHandled: false);
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> ''
-        }
+	handlerName = null;
+	result = configuration.Catch(new Exception(), throwIfNotHandled: false);
+	Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+	//  Handler[Handled=False] -> ''
+}
 ```
 
 ### Input Parameter and Result
@@ -125,48 +125,50 @@ Here is a simple example of handling exceptions by their types:
 In this example, a parameter is passed as an argument of the `Catch` method, and a result is returned by handlers. One of the handlers will be invoked but won't be considered to handle the exception:
 
 ```csharp
-        public static void InputAndResultExceptionHandling(string param01)
-        {
-            var configuration =
-                Handling
-                    .On<ArgumentNullException>((ex, i) =>
-                    {
-                        //  this handler will be invoked, but says to be ignored
-                        
-                        //return new HandlingResult(false);
-                        //return HandlingResult.False;
-                        return false;
-                    })
-                    .On<ArgumentException>((ex, i) =>
-                    {
-                        var ret =
-                            $"ArgumentException[ParamName={ex.ParamName}, InputParameter={i.Parameter<int>()}]";
-                        return new HandlingResult(true, ret);
-                    })
-                    .On<Exception>((ex, i) =>
-                    {
-                        var ret =
-                            $"Exception[InputParameter={i.Parameter}]";
-                        return new HandlingResult(true, ret);
-                    });
+public static void InputAndResultExceptionHandling(string param01)
+{
+	var configuration =
+		Handling.Prepare<int, string>()
+			.On<ArgumentNullException>((ex, i) =>
+			{
+				//  this handler will be invoked, but says to be ignored
 
-            var result = 
-                configuration.Catch(
-                    new ArgumentNullException(nameof(param01)), 987987);
-            Console.WriteLine($"Handler -> '{result.Result<string>()}'");
-            //  Handler -> 'ArgumentException[ParamName=param01, InputParameter=987987]'
+				//return new HandlingResult<string>(false);
+				//return Handling.Ignore<string>();
+				return false;
+			})
+			.On<ArgumentException>((ex, i) =>
+			{
+				var ret = $"ArgumentException[ParamName={ex.ParamName}, InputParameter={i.Parameter}]";
+				
+				//return new HandlingResult<string>(true, ret);
+				return Handling.Handled(ret);
+			})
+			.On<Exception>((ex, i) =>
+			{
+				var ret = $"Exception[InputParameter={i.Parameter}]";
 
-            result = 
-                configuration.Catch(
-                    new ArgumentOutOfRangeException(nameof(param01)), 123123);
-            Console.WriteLine($"Handler -> '{result.Result<string>()}'");
-            //  Handler -> 'ArgumentException[ParamName=param01, InputParameter=123123]'
+				//return new HandlingResult<string>(true, ret);
+				return Handling.Handled(ret);
+			});
 
-            result =
-                configuration.Catch(new Exception(), 54321);
-            Console.WriteLine($"Handler -> '{result.Result}'");
-            //  Handler -> 'Exception[InputParameter=54321]'
-        }
+	var result = 
+		configuration.Catch(
+			new ArgumentNullException(nameof(param01)), 987987);
+	Console.WriteLine($"Handler[Handled={result.Handled}] -> '{result.Result}'");
+	//  Handler[Handled=True] -> 'ArgumentException[ParamName=param01, InputParameter=987987]'
+
+	result = 
+		configuration.Catch(
+			new ArgumentOutOfRangeException(nameof(param01)), 123123);
+	Console.WriteLine($"Handler[Handled={result.Handled}] -> '{result.Result}'");
+	//  Handler[Handled=True] -> 'ArgumentException[ParamName=param01, InputParameter=123123]'
+
+	result =
+		configuration.Catch(new Exception(), 54321);
+	Console.WriteLine($"Handler[Handled={result.Handled}] -> '{result.Result}'");
+	//  Handler[Handled=True] -> 'Exception[InputParameter=54321]'
+}
 ```
 
 ## Conditions
@@ -174,30 +176,30 @@ In this example, a parameter is passed as an argument of the `Catch` method, and
 In this example, some handlers are conditionally invoked, even if the exception type match:
 
 ```csharp
-        public static void ConditionalExceptionHandling(string param01, string param02, string param03)
-        {
-            string handlerName = null;
-            var configuration =
-                Handling
-                    .On<ArgumentNullException>(ex =>
-                    {
-                        handlerName = "ArgumentNullException[ParamName=param01]";
-                    }, (ex, i) => ex.ParamName == nameof(param01))
-                    .On<ArgumentNullException>(ex =>
-                    {
-                        handlerName = "ArgumentNullException[ParamName=param02]";
-                    }, (ex, i) => ex.ParamName == nameof(param02))
-                    .On<ArgumentNullException>(ex =>
-                    {
-                        handlerName = $"ArgumentNullException[ParamName={ex.ParamName}]";
-                    });
+public static void ConditionalExceptionHandling(string param01, string param02, string param03)
+{
+	string handlerName = null;
+	var configuration =
+		Handling.Prepare()
+			.On<ArgumentNullException>(ex =>
+			{
+				handlerName = "ArgumentNullException[ParamName=param01]";
+			}, (ex, i) => ex.ParamName == nameof(param01))
+			.On<ArgumentNullException>(ex =>
+			{
+				handlerName = "ArgumentNullException[ParamName=param02]";
+			}, (ex, i) => ex.ParamName == nameof(param02))
+			.On<ArgumentNullException>(ex =>
+			{
+				handlerName = $"ArgumentNullException[ParamName={ex.ParamName}]";
+			});
 
-            configuration.Catch(new ArgumentNullException(nameof(param01)));
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> 'ArgumentException[ParamName=param01]'
+	var result = configuration.Catch(new ArgumentNullException(nameof(param01)));
+	Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+	//  Handler[Handled=True] -> 'ArgumentException[ParamName=param01]'
 
-            configuration.Catch(new ArgumentNullException(nameof(param03)));
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> 'ArgumentException[ParamName=param03]'
-        }
+	result = configuration.Catch(new ArgumentNullException(nameof(param03)));
+	Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+	//  Handler[Handled=True] -> 'ArgumentException[ParamName=param03]'
+}
 ```
