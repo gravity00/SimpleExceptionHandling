@@ -40,7 +40,8 @@ namespace SimpleExceptionHandling
 
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="IHandlingConfiguration.Catch"/>, it will be considered successfully handled.
+        /// a given exception on <see cref="IHandlingConfiguration{TParameter,TResult}.Catch"/>, 
+        /// it will be considered successfully handled.
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
         /// <param name="handler">The handler to be added</param>
@@ -69,7 +70,8 @@ namespace SimpleExceptionHandling
 
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and true is returned, it will be considered successfully handled.
+        /// a given exception on <see cref="IHandlingConfiguration{TParameter,TResult}.Catch"/> and 
+        /// true is returned, it will be considered successfully handled.
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
         /// <param name="handler">The handler to be added</param>
@@ -97,7 +99,8 @@ namespace SimpleExceptionHandling
 
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and <see cref="IHandlingResult.Handled"/> is true, 
+        /// a given exception on <see cref="IHandlingConfiguration{TParameter,TResult}.Catch"/> 
+        /// and <see cref="IHandlingResult{TResult}.Handled"/> is true, 
         /// it will be considered successfully handled.
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
@@ -126,7 +129,8 @@ namespace SimpleExceptionHandling
 
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="IHandlingConfiguration.Catch"/>, it will be considered successfully handled.
+        /// a given exception on <see cref="IHandlingConfiguration{TParameter,TResult}.Catch"/>, 
+        /// it will be considered successfully handled.
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
         /// <param name="handler">The handler to be added</param>
@@ -155,7 +159,8 @@ namespace SimpleExceptionHandling
 
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and true is returned, it will be considered successfully handled.
+        /// a given exception on <see cref="IHandlingConfiguration{TParameter,TResult}.Catch"/> 
+        /// and true is returned, it will be considered successfully handled.
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
         /// <param name="handler">The handler to be added</param>
@@ -183,7 +188,8 @@ namespace SimpleExceptionHandling
 
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and <see cref="IHandlingResult.Handled"/> is true, 
+        /// a given exception on <see cref="IHandlingConfiguration{TParameter,TResult}.Catch"/> 
+        /// and <see cref="IHandlingResult{TResult}.Handled"/> is true, 
         /// it will be considered successfully handled.
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
