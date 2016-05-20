@@ -42,7 +42,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Action<TException, IHandlingInput> handler, Func<TException, IHandlingInput, bool> condition = null)
+            Action<TException, IHandlingInput<object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -55,7 +56,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput, bool> handler, Func<TException, IHandlingInput, bool> condition = null)
+            Func<TException, IHandlingInput<object>, bool> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -69,7 +71,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput, IHandlingResult> handler, Func<TException, IHandlingInput, bool> condition = null)
+            Func<TException, IHandlingInput<object>, IHandlingResult<object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -83,7 +86,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput, Tuple<bool, object>> handler, Func<TException, IHandlingInput, bool> condition = null)
+            Func<TException, IHandlingInput<object>, Tuple<bool, object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -96,7 +100,7 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Action<TException> handler, Func<TException, IHandlingInput, bool> condition = null)
+            Action<TException> handler, Func<TException, IHandlingInput<object>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -109,7 +113,7 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, bool> handler, Func<TException, IHandlingInput, bool> condition = null)
+            Func<TException, bool> handler, Func<TException, IHandlingInput<object>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -123,7 +127,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingResult> handler, Func<TException, IHandlingInput, bool> condition = null)
+            Func<TException, IHandlingResult<object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -137,7 +142,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, Tuple<bool, object>> handler, Func<TException, IHandlingInput, bool> condition = null)
+            Func<TException, Tuple<bool, object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null)
             where TException : Exception;
 
         #endregion
@@ -153,6 +159,6 @@ namespace SimpleExceptionHandling
         /// <param name="throwIfNotHandled">If not handled, should the exception be thrown</param>
         /// <returns>The handling result</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingResult Catch(Exception exception, object parameter = null, bool throwIfNotHandled = true);
+        IHandlingResult<object> Catch(Exception exception, object parameter = null, bool throwIfNotHandled = true);
     }
 }

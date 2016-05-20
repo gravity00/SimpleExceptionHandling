@@ -30,8 +30,8 @@ namespace SimpleExceptionHandling
     /// </summary>
     public class HandlingConfiguration : IHandlingConfiguration
     {
-        private Func<Exception, IHandlingInput, IHandlingResult>[] _handlers = 
-            new Func<Exception, IHandlingInput, IHandlingResult>[10];
+        private Func<Exception, IHandlingInput<object>, IHandlingResult<object>>[] _handlers = 
+            new Func<Exception, IHandlingInput<object>, IHandlingResult<object>>[10];
         private int _handlerCount;
 
         #region On
@@ -46,7 +46,9 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public IHandlingConfiguration On<TException>(
-            Action<TException, IHandlingInput> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Action<TException, IHandlingInput<object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -73,7 +75,9 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput, bool> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, IHandlingInput<object>, bool> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -100,7 +104,9 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput, IHandlingResult> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, IHandlingInput<object>, IHandlingResult<object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -127,7 +133,9 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput, Tuple<bool, object>> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, IHandlingInput<object>, Tuple<bool, object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -154,7 +162,9 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public IHandlingConfiguration On<TException>(
-            Action<TException> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Action<TException> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -181,7 +191,9 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public IHandlingConfiguration On<TException>(
-            Func<TException, bool> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, bool> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -208,7 +220,9 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingResult> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, IHandlingResult<object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -235,7 +249,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public IHandlingConfiguration On<TException>(
-            Func<TException, Tuple<bool, object>> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, Tuple<bool, object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -265,7 +280,7 @@ namespace SimpleExceptionHandling
         /// <param name="throwIfNotHandled">If not handled, should the exception be thrown</param>
         /// <returns>The handling result</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingResult Catch(Exception exception, object parameter = null, bool throwIfNotHandled = true)
+        public IHandlingResult<object> Catch(Exception exception, object parameter = null, bool throwIfNotHandled = true)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
 
@@ -284,11 +299,12 @@ namespace SimpleExceptionHandling
 
         #region Private
 
-        private void AddHandler(Func<Exception, IHandlingInput, IHandlingResult> handler)
+        private void AddHandler(Func<Exception, IHandlingInput<object>, IHandlingResult<object>> handler)
         {
             if (_handlerCount == _handlers.Length)
             {
-                var newHandlerCollection = new Func<Exception, IHandlingInput, IHandlingResult>[_handlers.Length * 2];
+                var newHandlerCollection = 
+                    new Func<Exception, IHandlingInput<object>, IHandlingResult<object>>[_handlers.Length * 2];
                 _handlers.CopyTo(newHandlerCollection, 0);
                 _handlers = newHandlerCollection;
             }

@@ -42,7 +42,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static IHandlingConfiguration On<TException>(
-            Action<TException, IHandlingInput> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Action<TException, IHandlingInput<object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -59,7 +60,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput, bool> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, IHandlingInput<object>, bool> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -77,7 +79,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput, IHandlingResult> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, IHandlingInput<object>, IHandlingResult<object>> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -94,7 +97,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static IHandlingConfiguration On<TException>(
-            Action<TException> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Action<TException> handler, Func<TException, IHandlingInput<object>, bool> condition = null) 
+            where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -111,7 +115,9 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static IHandlingConfiguration On<TException>(
-            Func<TException, bool> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, bool> handler, 
+            Func<TException, IHandlingInput<object>, bool> condition = null) 
+            where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
@@ -129,7 +135,7 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingResult> handler, Func<TException, IHandlingInput, bool> condition = null) where TException : Exception
+            Func<TException, IHandlingResult<object>> handler, Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
         {
             if (handler == null) throw new ArgumentNullException(nameof(handler));
 
