@@ -26,27 +26,9 @@ namespace SimpleExceptionHandling
     /// <summary>
     /// The handling result.
     /// </summary>
-    public class HandlingResult : IHandlingResult
+    public class HandlingResult<TResult> : IHandlingResult<TResult>
     {
-        /// <summary>
-        /// Global instance with <see cref="IHandlingResult.Handled"/> set to false.
-        /// </summary>
-        public static IHandlingResult False { get; } = new HandlingResult(false);
-
-        /// <summary>
-        /// Global instance with <see cref="IHandlingResult.Handled"/> set to true.
-        /// </summary>
-        public static IHandlingResult True { get; } = new HandlingResult(true);
-
-        /// <summary>
-        /// Was the exception handled?
-        /// </summary>
-        public bool Handled { get; }
-
-        /// <summary>
-        /// The result object for the handling operation
-        /// </summary>
-        public object Result { get; }
+        #region Constructors
 
         /// <summary>
         /// Creates a new instance.
@@ -62,10 +44,65 @@ namespace SimpleExceptionHandling
         /// </summary>
         /// <param name="handled">Was the exception handled?</param>
         /// <param name="result">An optional result object</param>
-        public HandlingResult(bool handled, object result = null)
+        public HandlingResult(bool handled, TResult result = default(TResult))
         {
             Handled = handled;
             Result = result;
         }
+
+        #endregion
+
+        /// <summary>
+        /// Was the exception handled?
+        /// </summary>
+        public bool Handled { get; }
+
+        /// <summary>
+        /// The result object for the handling operation
+        /// </summary>
+        public TResult Result { get; }
+    }
+
+    /// <summary>
+    /// The handling result.
+    /// </summary>
+    public class HandlingResult : HandlingResult<object>, IHandlingResult
+    {
+        #region Statics
+
+        /// <summary>
+        /// Global instance with <see cref="IHandlingResult.Handled"/> set to false.
+        /// </summary>
+        public static IHandlingResult False { get; } = new HandlingResult(false);
+
+        /// <summary>
+        /// Global instance with <see cref="IHandlingResult.Handled"/> set to true.
+        /// </summary>
+        public static IHandlingResult True { get; } = new HandlingResult(true);
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new instance.
+        /// The property <see cref="IHandlingResult.Handled"/> will be set to true.
+        /// </summary>
+        public HandlingResult()
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="handled">Was the exception handled?</param>
+        /// <param name="result">An optional result object</param>
+        public HandlingResult(bool handled, object result = null) : base(handled, result)
+        {
+
+        }
+
+        #endregion
     }
 }

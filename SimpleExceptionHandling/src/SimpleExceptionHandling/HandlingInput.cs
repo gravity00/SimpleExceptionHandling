@@ -28,7 +28,8 @@ namespace SimpleExceptionHandling
     /// <summary>
     /// The handling input information.
     /// </summary>
-    public class HandlingInput : IHandlingInput
+    /// <typeparam name="TParameter">The parameter type</typeparam>
+    public class HandlingInput<TParameter> : IHandlingInput<TParameter>
     {
         /// <summary>
         /// The exception to be handled
@@ -38,7 +39,7 @@ namespace SimpleExceptionHandling
         /// <summary>
         /// The parameter object for the handling operation
         /// </summary>
-        public object Parameter { get; }
+        public TParameter Parameter { get; }
 
         /// <summary>
         /// Creates a new instance.
@@ -46,12 +47,29 @@ namespace SimpleExceptionHandling
         /// <param name="exception">The exception to be handled</param>
         /// <param name="parameter">An optional input parameter</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public HandlingInput(Exception exception, object parameter = null)
+        public HandlingInput(Exception exception, TParameter parameter = default(TParameter))
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
 
             Exception = exception;
             Parameter = parameter;
+        }
+    }
+
+    /// <summary>
+    /// The handling input information.
+    /// </summary>
+    public class HandlingInput : HandlingInput<object>, IHandlingInput
+    {
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="exception">The exception to be handled</param>
+        /// <param name="parameter">An optional input parameter</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public HandlingInput(Exception exception, object parameter = null) : base(exception, parameter)
+        {
+
         }
     }
 }
