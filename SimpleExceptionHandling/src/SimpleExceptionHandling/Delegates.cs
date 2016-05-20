@@ -25,10 +25,33 @@ namespace SimpleExceptionHandling
 {
 #if NET20
 
+    /// <summary>
+    /// Encapsulates a method that has two parameters and does not return a value.
+    /// </summary>
+    /// <typeparam name="T01">The first parameter type</typeparam>
+    /// <typeparam name="T02">The second parameter type</typeparam>
+    /// <param name="arg01">The first parameter</param>
+    /// <param name="arg02">The second parameter</param>
     public delegate void Action<in T01, in T02>(T01 arg01, T02 arg02);
 
+    /// <summary>
+    /// Encapsulates a method that has a single parameter and returns a value.
+    /// </summary>
+    /// <typeparam name="T">The parameter type</typeparam>
+    /// <typeparam name="TResult">The result type</typeparam>
+    /// <param name="arg">The parameter</param>
+    /// <returns>The result value</returns>
     public delegate TResult Func<in T, out TResult>(T arg);
 
+    /// <summary>
+    /// Encapsulates a method that has two parameters and returns a value.
+    /// </summary>
+    /// <typeparam name="T01">The first parameter type</typeparam>
+    /// <typeparam name="T02">The second parameter type</typeparam>
+    /// <typeparam name="TResult">The result type</typeparam>
+    /// <param name="arg01">The first parameter</param>
+    /// <param name="arg02">The second parameter</param>
+    /// <returns>The result value</returns>
     public delegate TResult Func<in T01, in T02, out TResult>(T01 arg01, T02 arg02);
 
 #endif
