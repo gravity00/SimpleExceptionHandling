@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-rc02",
+  "version": "1.0.0",
   "title": "Simple Exception Handling",
   "summary": "Library that helps developers to handle exceptions outside catch blocks.",
   "description": "Library that helps developers to handle exceptions outside catch blocks. Typical usages are global exception handlers.",
