@@ -223,7 +223,7 @@ namespace SimpleExceptionHandling
 
             if (throwIfNotHandled)
                 throw exception;
-            return new HandlingResult(false);
+            return HandlingResult.False;
         }
 
         #region Private
