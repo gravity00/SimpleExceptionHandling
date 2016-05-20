@@ -89,7 +89,7 @@ public class GlobalExceptionHandler : ExceptionHandler
 
 Here is a simple example of handling exceptions by their types:
 
-```
+```csharp
         public static void BasicExceptionHandling(string param01)
         {
             string handlerName = null;
@@ -124,7 +124,7 @@ Here is a simple example of handling exceptions by their types:
 
 In this example, a parameter is passed as an argument of the `Catch` method, and a result is returned by handlers. One of the handlers will be invoked but won't be considered to handle the exception:
 
-```
+```csharp
         public static void InputAndResultExceptionHandling(string param01)
         {
             var configuration =
@@ -173,7 +173,7 @@ In this example, a parameter is passed as an argument of the `Catch` method, and
 
 In this example, some handlers are conditionally invoked, even if the exception type match:
 
-```
+```csharp
         public static void ConditionalExceptionHandling(string param01, string param02, string param03)
         {
             string handlerName = null;
