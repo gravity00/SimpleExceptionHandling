@@ -68,20 +68,6 @@ namespace SimpleExceptionHandling
     /// </summary>
     public class HandlingResult : HandlingResult<object>, IHandlingResult
     {
-        #region Statics
-
-        /// <summary>
-        /// Global instance with <see cref="IHandlingResult.Handled"/> set to false.
-        /// </summary>
-        public static IHandlingResult<object> False { get; } = new HandlingResult(false);
-
-        /// <summary>
-        /// Global instance with <see cref="IHandlingResult.Handled"/> set to true.
-        /// </summary>
-        public static IHandlingResult<object> True { get; } = new HandlingResult(true);
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
