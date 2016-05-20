@@ -141,7 +141,7 @@ namespace SimpleExceptionHandling
         #region IHandlingResult.Result
 
         /// <summary>
-        /// Gets the <see cref="IHandlingResult.Result"/> as an extected type.
+        /// Gets the <see cref="IHandlingResult{TResult}.Result"/> as an extected type.
         /// </summary>
         /// <typeparam name="TResult">The state type</typeparam>
         /// <param name="result">The handling result to use</param>
@@ -149,9 +149,9 @@ namespace SimpleExceptionHandling
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidCastException"></exception>
 #if NET20
-        public static TResult Result<TResult>(IHandlingResult result)
+        public static TResult Result<TResult>(IHandlingResult<object> result)
 #else
-        public static TResult Result<TResult>(this IHandlingResult result)
+        public static TResult Result<TResult>(this IHandlingResult<object> result)
 #endif
         {
             if (result == null) throw new ArgumentNullException(nameof(result));
@@ -164,7 +164,7 @@ namespace SimpleExceptionHandling
         #region IHandlingInput.Parameter
 
         /// <summary>
-        /// Gets the <see cref="IHandlingInput.Parameter"/> as an extected type.
+        /// Gets the <see cref="IHandlingInput{TParameter}.Parameter"/> as an extected type.
         /// </summary>
         /// <typeparam name="TResult">The state type</typeparam>
         /// <param name="input">The handling input to use</param>
@@ -172,9 +172,9 @@ namespace SimpleExceptionHandling
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidCastException"></exception>
 #if NET20
-        public static TResult Parameter<TResult>(IHandlingInput input)
+        public static TResult Parameter<TResult>(IHandlingInput<object> input)
 #else
-        public static TResult Parameter<TResult>(this IHandlingInput input)
+        public static TResult Parameter<TResult>(this IHandlingInput<object> input)
 #endif
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
