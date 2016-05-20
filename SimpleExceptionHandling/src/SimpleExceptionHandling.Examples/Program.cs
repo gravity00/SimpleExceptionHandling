@@ -76,19 +76,23 @@ namespace SimpleExceptionHandling.Examples
                     {
                         //  this handler will be invoked, but says to be ignored
 
-                        //return new HandlingResult(false);
-                        //return HandlingResult.False;
+                        //return new HandlingResult<string>(false);
+                        //return Handling.Ignore<string>();
                         return false;
                     })
                     .On<ArgumentException>((ex, i) =>
                     {
                         var ret = $"ArgumentException[ParamName={ex.ParamName}, InputParameter={i.Parameter}]";
-                        return new HandlingResult<string>(true, ret);
+                        
+                        //return new HandlingResult<string>(true, ret);
+                        return Handling.Handled(ret);
                     })
                     .On<Exception>((ex, i) =>
                     {
                         var ret = $"Exception[InputParameter={i.Parameter}]";
-                        return new HandlingResult<string>(true, ret);
+
+                        //return new HandlingResult<string>(true, ret);
+                        return Handling.Handled(ret);
                     });
 
             var result = 

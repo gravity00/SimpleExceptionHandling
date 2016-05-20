@@ -30,6 +30,10 @@ namespace SimpleExceptionHandling
     /// </summary>
     public static class Handling
     {
+        private static readonly IHandlingResult<object> HandledResult = new HandlingResult(true);
+
+        private static readonly IHandlingResult<object> IgnoredResult = new HandlingResult(false);
+
         #region Prepare
 
         /// <summary>
@@ -47,7 +51,7 @@ namespace SimpleExceptionHandling
         /// Prepares a new <see cref="IHandlingConfiguration"/> instance to be configured.
         /// </summary>
         /// <returns>The handling configuration instance</returns>
-        public static IHandlingConfiguration Prepare()
+        public static IHandlingConfiguration<object, object> Prepare()
         {
             return new HandlingConfiguration();
         }
@@ -96,6 +100,79 @@ namespace SimpleExceptionHandling
             if (input == null) throw new ArgumentNullException(nameof(input));
 
             return (TResult)input.Parameter;
+        }
+
+        #endregion
+
+        #region Handled
+
+        /// <summary>
+        /// Returns an handling result with the flag <see cref="IHandlingResult{TResult}.Handled"/>
+        /// set to true.
+        /// </summary>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <returns>The handling result</returns>
+        public static IHandlingResult<TResult> Handled<TResult>()
+        {
+            return new HandlingResult<TResult>(true);
+        }
+
+        /// <summary>
+        /// Returns an handling result with the flag <see cref="IHandlingResult{TResult}.Handled"/>
+        /// set to true.
+        /// </summary>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <param name="result">The result value</param>
+        /// <returns>The handling result</returns>
+        public static IHandlingResult<TResult> Handled<TResult>(TResult result)
+        {
+            return new HandlingResult<TResult>(true, result);
+        }
+
+        /// <summary>
+        /// Returns an handling result with the flag <see cref="IHandlingResult{TResult}.Handled"/>
+        /// set to true.
+        /// </summary>
+        /// <returns>The handling result</returns>
+        public static IHandlingResult<object> Handled()
+        {
+            return HandledResult;
+        }
+
+        /// <summary>
+        /// Returns an handling result with the flag <see cref="IHandlingResult{TResult}.Handled"/>
+        /// set to true.
+        /// </summary>
+        /// <param name="result">The result value</param>
+        /// <returns>The handling result</returns>
+        public static IHandlingResult<object> Handled(object result)
+        {
+            return new HandlingResult(true, result);
+        }
+
+        #endregion
+
+        #region Ignore
+
+        /// <summary>
+        /// Returns an handling result with the flag <see cref="IHandlingResult{TResult}.Handled"/>
+        /// set to false.
+        /// </summary>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <returns>The handling result</returns>
+        public static IHandlingResult<TResult> Ignore<TResult>()
+        {
+            return new HandlingResult<TResult>(false);
+        }
+
+        /// <summary>
+        /// Returns an handling result with the flag <see cref="IHandlingResult{TResult}.Handled"/>
+        /// set to false.
+        /// </summary>
+        /// <returns>The handling result</returns>
+        public static IHandlingResult<object> Ignore()
+        {
+            return IgnoredResult;
         }
 
         #endregion
