@@ -28,7 +28,9 @@ namespace SimpleExceptionHandling
     /// <summary>
     /// The exception handling configuration.
     /// </summary>
-    public interface IHandlingConfiguration
+    /// <typeparam name="TParameter">The parameter type</typeparam>
+    /// <typeparam name="TResult">The result type</typeparam>
+    public interface IHandlingConfiguration<TParameter, TResult>
     {
         #region On
 
@@ -42,8 +44,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Action<TException, IHandlingInput<object>> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null)
+            Action<TException, IHandlingInput<TParameter>> handler, 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -56,8 +58,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput<object>, bool> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null)
+            Func<TException, IHandlingInput<TParameter>, bool> handler, 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -71,8 +73,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput<object>, IHandlingResult<object>> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null)
+            Func<TException, IHandlingInput<TParameter>, IHandlingResult<TResult>> handler, 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -85,7 +87,7 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Action<TException> handler, Func<TException, IHandlingInput<object>, bool> condition = null)
+            Action<TException> handler, Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -98,7 +100,7 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, bool> handler, Func<TException, IHandlingInput<object>, bool> condition = null)
+            Func<TException, bool> handler, Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
 
         /// <summary>
@@ -112,8 +114,8 @@ namespace SimpleExceptionHandling
         /// <returns>The configuration after changes</returns>
         /// <exception cref="ArgumentNullException"></exception>
         IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingResult<object>> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null)
+            Func<TException, IHandlingResult<TResult>> handler, 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null)
             where TException : Exception;
 
         #endregion
@@ -129,6 +131,14 @@ namespace SimpleExceptionHandling
         /// <param name="throwIfNotHandled">If not handled, should the exception be thrown</param>
         /// <returns>The handling result</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        IHandlingResult<object> Catch(Exception exception, object parameter = null, bool throwIfNotHandled = true);
+        IHandlingResult<TResult> Catch(Exception exception, object parameter = null, bool throwIfNotHandled = true);
+    }
+
+    /// <summary>
+    /// The exception handling configuration.
+    /// </summary>
+    public interface IHandlingConfiguration : IHandlingConfiguration<object, object>
+    {
+        
     }
 }
