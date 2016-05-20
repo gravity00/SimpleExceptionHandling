@@ -32,6 +32,135 @@ namespace SimpleExceptionHandling
     {
         #region On
 
+        #region Generic
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="IHandlingConfiguration.Catch"/>, it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <typeparam name="TParameter">The parameter type</typeparam>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IHandlingConfiguration<TParameter, TResult> On<TException, TParameter, TResult>(
+            Action<TException, IHandlingInput<TParameter>> handler,
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            return new HandlingConfiguration<TParameter, TResult>().On(handler, condition);
+        }
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and true is returned, it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <typeparam name="TParameter">The parameter type</typeparam>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IHandlingConfiguration<TParameter, TResult> On<TException, TParameter, TResult>(
+            Func<TException, IHandlingInput<TParameter>, bool> handler,
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            return new HandlingConfiguration<TParameter, TResult>().On(handler, condition);
+        }
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and <see cref="IHandlingResult.Handled"/> is true, 
+        /// it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <typeparam name="TParameter">The parameter type</typeparam>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IHandlingConfiguration<TParameter, TResult> On<TException, TParameter, TResult>(
+            Func<TException, IHandlingInput<TParameter>, IHandlingResult<TResult>> handler,
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            return new HandlingConfiguration<TParameter, TResult>().On(handler, condition);
+        }
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="IHandlingConfiguration.Catch"/>, it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <typeparam name="TParameter">The parameter type</typeparam>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IHandlingConfiguration<TParameter, TResult> On<TException, TParameter, TResult>(
+            Action<TException> handler, Func<TException, IHandlingInput<TParameter>, bool> condition = null)
+            where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            return new HandlingConfiguration<TParameter, TResult>().On(handler, condition);
+        }
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and true is returned, it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <typeparam name="TParameter">The parameter type</typeparam>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IHandlingConfiguration<TParameter, TResult> On<TException, TParameter, TResult>(
+            Func<TException, bool> handler,
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null)
+            where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            return new HandlingConfiguration<TParameter, TResult>().On(handler, condition);
+        }
+
+        /// <summary>
+        /// Adds the given exception handler to this configuration. If this handler matches
+        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and <see cref="IHandlingResult.Handled"/> is true, 
+        /// it will be considered successfully handled.
+        /// </summary>
+        /// <typeparam name="TException">The exception type</typeparam>
+        /// <typeparam name="TParameter">The parameter type</typeparam>
+        /// <typeparam name="TResult">The result type</typeparam>
+        /// <param name="handler">The handler to be added</param>
+        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static IHandlingConfiguration<TParameter, TResult> On<TException, TParameter, TResult>(
+            Func<TException, IHandlingResult<TResult>> handler, 
+            Func<TException, IHandlingInput<TParameter>, bool> condition = null) where TException : Exception
+        {
+            if (handler == null) throw new ArgumentNullException(nameof(handler));
+
+            return new HandlingConfiguration<TParameter, TResult>().On(handler, condition);
+        }
+
+        #endregion
+
+        #region Default
+
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
         /// a given exception on <see cref="IHandlingConfiguration.Catch"/>, it will be considered successfully handled.
@@ -141,6 +270,8 @@ namespace SimpleExceptionHandling
 
             return new HandlingConfiguration().On(handler, condition);
         }
+
+        #endregion
 
         #endregion
 
