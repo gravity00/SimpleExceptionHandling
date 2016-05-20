@@ -5,7 +5,7 @@ Library that helps developers to handle exceptions outside catch blocks. Typical
 This library can be installed via [NuGet](https://www.nuget.org/packages/SimpleExceptionHandling/) package. Just run the following command:
 
 ```powershell
-Install-Package SimpleExceptionHandling -Pre
+Install-Package SimpleExceptionHandling
 ```
 
 ## Compatibility
