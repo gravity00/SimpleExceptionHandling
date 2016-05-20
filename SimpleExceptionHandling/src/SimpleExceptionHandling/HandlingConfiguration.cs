@@ -124,36 +124,6 @@ namespace SimpleExceptionHandling
 
         /// <summary>
         /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and <see cref="IHandlingResult.Handled"/> is true, 
-        /// it will be considered successfully handled.
-        /// </summary>
-        /// <typeparam name="TException">The exception type</typeparam>
-        /// <param name="handler">The handler to be added</param>
-        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
-        /// <returns>The configuration after changes</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(
-            Func<TException, IHandlingInput<object>, Tuple<bool, object>> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null) 
-            where TException : Exception
-        {
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-
-            AddHandler((ex, i) =>
-            {
-                var castedException = ex as TException;
-                if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return HandlingResult.False;
-
-                var result = handler(castedException, i);
-                return new HandlingResult(result.Item1, result.Item2);
-            });
-
-            return this;
-        }
-
-        /// <summary>
-        /// Adds the given exception handler to this configuration. If this handler matches
         /// a given exception on <see cref="IHandlingConfiguration.Catch"/>, it will be considered successfully handled.
         /// </summary>
         /// <typeparam name="TException">The exception type</typeparam>
@@ -233,35 +203,6 @@ namespace SimpleExceptionHandling
                     return HandlingResult.False;
 
                 return handler(castedException);
-            });
-
-            return this;
-        }
-
-        /// <summary>
-        /// Adds the given exception handler to this configuration. If this handler matches
-        /// a given exception on <see cref="IHandlingConfiguration.Catch"/> and <see cref="IHandlingResult.Handled"/> is true, 
-        /// it will be considered successfully handled.
-        /// </summary>
-        /// <typeparam name="TException">The exception type</typeparam>
-        /// <param name="handler">The handler to be added</param>
-        /// <param name="condition">An optional condition to be checked if the handler must be used</param>
-        /// <returns>The configuration after changes</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        public IHandlingConfiguration On<TException>(
-            Func<TException, Tuple<bool, object>> handler, 
-            Func<TException, IHandlingInput<object>, bool> condition = null) where TException : Exception
-        {
-            if (handler == null) throw new ArgumentNullException(nameof(handler));
-
-            AddHandler((ex, i) =>
-            {
-                var castedException = ex as TException;
-                if (castedException == null || (condition != null && !condition(castedException, i)))
-                    return HandlingResult.False;
-
-                var result = handler(castedException);
-                return new HandlingResult(result.Item1, result.Item2);
             });
 
             return this;
