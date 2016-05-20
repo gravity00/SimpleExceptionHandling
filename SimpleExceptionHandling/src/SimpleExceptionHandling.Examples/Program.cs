@@ -53,19 +53,19 @@ namespace SimpleExceptionHandling.Examples
                         handlerName = $"ArgumentException[ParamName={ex.ParamName}]";
                     });
 
-            configuration.Catch(new ArgumentNullException(nameof(param01)));
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> 'ArgumentNullException[ParamName=param01]'
+            var result = configuration.Catch(new ArgumentNullException(nameof(param01)));
+            Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+            //  Handler[Handled=True] -> 'ArgumentNullException[ParamName=param01]'
 
             handlerName = null;
-            configuration.Catch(new ArgumentOutOfRangeException(nameof(param01)));
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> 'ArgumentException[ParamName=param01]'
+            result = configuration.Catch(new ArgumentOutOfRangeException(nameof(param01)));
+            Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+            //  Handler[Handled=True] -> 'ArgumentException[ParamName=param01]'
 
             handlerName = null;
-            configuration.Catch(new Exception(), throwIfNotHandled: false);
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> ''
+            result = configuration.Catch(new Exception(), throwIfNotHandled: false);
+            Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+            //  Handler[Handled=False] -> ''
         }
 
         public static void InputAndResultExceptionHandling(string param01)
@@ -94,19 +94,19 @@ namespace SimpleExceptionHandling.Examples
             var result = 
                 configuration.Catch(
                     new ArgumentNullException(nameof(param01)), 987987);
-            Console.WriteLine($"Handler -> '{result.Result}'");
-            //  Handler -> 'ArgumentException[ParamName=param01, InputParameter=987987]'
+            Console.WriteLine($"Handler[Handled={result.Handled}] -> '{result.Result}'");
+            //  Handler[Handled=True] -> 'ArgumentException[ParamName=param01, InputParameter=987987]'
 
             result = 
                 configuration.Catch(
                     new ArgumentOutOfRangeException(nameof(param01)), 123123);
-            Console.WriteLine($"Handler -> '{result.Result}'");
-            //  Handler -> 'ArgumentException[ParamName=param01, InputParameter=123123]'
+            Console.WriteLine($"Handler[Handled={result.Handled}] -> '{result.Result}'");
+            //  Handler[Handled=True] -> 'ArgumentException[ParamName=param01, InputParameter=123123]'
 
             result =
                 configuration.Catch(new Exception(), 54321);
-            Console.WriteLine($"Handler -> '{result.Result}'");
-            //  Handler -> 'Exception[InputParameter=54321]'
+            Console.WriteLine($"Handler[Handled={result.Handled}] -> '{result.Result}'");
+            //  Handler[Handled=True] -> 'Exception[InputParameter=54321]'
         }
 
         public static void ConditionalExceptionHandling(string param01, string param02, string param03)
@@ -127,13 +127,13 @@ namespace SimpleExceptionHandling.Examples
                         handlerName = $"ArgumentNullException[ParamName={ex.ParamName}]";
                     });
 
-            configuration.Catch(new ArgumentNullException(nameof(param01)));
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> 'ArgumentException[ParamName=param01]'
+            var result = configuration.Catch(new ArgumentNullException(nameof(param01)));
+            Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+            //  Handler[Handled=True] -> 'ArgumentException[ParamName=param01]'
 
-            configuration.Catch(new ArgumentNullException(nameof(param03)));
-            Console.WriteLine($"Handler -> '{handlerName}'");
-            //  Handler -> 'ArgumentException[ParamName=param03]'
+            result = configuration.Catch(new ArgumentNullException(nameof(param03)));
+            Console.WriteLine($"Handler[Handled={result.Handled}] -> '{handlerName}'");
+            //  Handler[Handled=True] -> 'ArgumentException[ParamName=param03]'
         }
     }
 }
