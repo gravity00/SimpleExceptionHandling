@@ -1,5 +1,6 @@
 # Simple Exception Handling
-Library that helps developers to handle exceptions outside catch blocks. Typical usages are global exception handlers.
+Library that helps developers to handle exceptions outside catch blocks.
+Typical usages are global exception handlers.
 
 ## Installation 
 This library can be installed via [NuGet](https://www.nuget.org/packages/SimpleExceptionHandling/) package. Just run the following command:
