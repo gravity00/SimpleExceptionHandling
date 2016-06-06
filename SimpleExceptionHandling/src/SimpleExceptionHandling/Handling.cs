@@ -51,7 +51,7 @@ namespace SimpleExceptionHandling
         /// Prepares a new <see cref="IHandlingConfiguration"/> instance to be configured.
         /// </summary>
         /// <returns>The handling configuration instance</returns>
-        public static IHandlingConfiguration<object, object> Prepare()
+        public static IHandlingConfiguration Prepare()
         {
             return new HandlingConfiguration();
         }
