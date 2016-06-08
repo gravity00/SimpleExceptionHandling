@@ -36,11 +36,11 @@ public class GlobalExceptionHandler : ExceptionHandler
 			Handling.Prepare<ExceptionHandlerContext, ResponseMessageResult>()
 				.On<ValidationException>((ex, i) =>
 				{
-		                        return Handling.Handled(
-		                            i.Parameter.Request.CreateBadRequestResult(
-		                                ex.ValidationErrors.Select(
-		                                    e => new KeyValuePair<string, string[]>(
-		                                        e.Key, e.Messages.ToArray()))));
+					return Handling.Handled(
+						i.Parameter.Request.CreateBadRequestResult(
+							ex.ValidationErrors.Select(
+								e => new KeyValuePair<string, string[]>(
+									e.Key, e.Messages.ToArray()))));
 				})
 				.On<BusinessException>((ex, i) =>
 				{
