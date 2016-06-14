@@ -37,6 +37,10 @@ namespace SimpleExceptionHandling.Examples
 
             Console.WriteLine();
             ConditionalExceptionHandling(null, null, null);
+
+            Console.WriteLine();
+            Console.WriteLine("Application terminated. Press <enter> to exit...");
+            Console.ReadLine();
         }
 
         public static void BasicExceptionHandling(string param01)
