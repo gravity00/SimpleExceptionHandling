@@ -11,7 +11,7 @@
     "projectUrl": "https://github.com/gravity00/SimpleExceptionHandling",
     "licenseUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/LICENSE",
     "iconUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/SimpleExceptionHandling-Logo.png",
-    "releaseNotes": "Library is now strong signed",
+    "releaseNotes": "Added support for .NETStandard",
     "owners": [ "João Simões" ],
     "repository": {
       "type": "git",
