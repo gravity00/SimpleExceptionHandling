@@ -1,23 +1,32 @@
 ﻿{
   "version": "1.0.1",
   "title": "Simple Exception Handling",
-  "summary": "Library that helps developers to handle exceptions outside catch blocks.",
   "description": "Library that helps developers to handle exceptions outside catch blocks. Typical usages are global exception handlers.",
   "authors": [ "João Simões" ],
-  "tags": [ "exception", "handler" ],
-  "projectUrl": "https://github.com/gravity00/SimpleExceptionHandling",
-  "licenseUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/LICENSE",
-  "iconUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/SimpleExceptionHandling-Logo.png",
   "language": "en-US",
   "copyright": "Copyright © 2016 João Simões",
-  "releaseNotes": "Library is now strong signed",
-  "compilationOptions": {
+  "packOptions": {
+    "summary": "Library that helps developers to handle exceptions outside catch blocks.",
+    "tags": [ "exception", "handler" ],
+    "projectUrl": "https://github.com/gravity00/SimpleExceptionHandling",
+    "licenseUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/LICENSE",
+    "iconUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/SimpleExceptionHandling-Logo.png",
+    "releaseNotes": "Library is now strong signed",
+    "owners": [ "João Simões" ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/gravity00/SimpleExceptionHandling"
+    }
+  },
+  "buildOptions": {
+    "xmlDoc": true,
+    "optimize": true,
     "keyFile": "SimpleExceptionHandling.snk"
   },
 
   "frameworks": {
     ".NETPortable,Version=v4.0,Profile=Profile328": {
-      "compilationOptions": {
+      "buildOptions": {
         "define": [ "PORTABLE40" ]
       },
       "frameworkAssemblies": {
@@ -28,12 +37,14 @@
     },
     "dnxcore5": {
       "dependencies": {
-        "System.Runtime": "4.0.0"
+        "System.Runtime": "4.0.0",
+        "System.Resources.ResourceManager": "4.0.0"
       }
     },
     "dotnet": {
       "dependencies": {
-        "System.Runtime": "4.0.0"
+        "System.Runtime": "4.0.0",
+        "System.Resources.ResourceManager": "4.0.0"
       }
     },
     "net20": { },
@@ -42,7 +53,8 @@
     "net45": { },
     "netcore45": {
       "dependencies": {
-        "System.Runtime": "4.0.0"
+        "System.Runtime": "4.0.0",
+        "System.Resources.ResourceManager": "4.0.0"
       }
     }
   }

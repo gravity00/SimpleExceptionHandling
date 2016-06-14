@@ -1,41 +1,45 @@
 ﻿{
   "version": "1.0.0-*",
   "title": "Simple Exception Handling Examples",
-  "summary": "Example code for SimpleExceptionHandling library.",
   "description": "Example code for SimpleExceptionHandling library.",
   "authors": [ "João Simões" ],
-  "tags": [ "exception", "handler", "examples" ],
-  "projectUrl": "https://github.com/gravity00/SimpleExceptionHandling",
-  "licenseUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/LICENSE",
-  "iconUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/SimpleExceptionHandling-Logo.png",
   "language": "en-US",
   "copyright": "Copyright © 2016 João Simões",
-  "releaseNotes": "",
-
-  "compilationOptions": {
+  "packOptions": {
+    "summary": "Example code for SimpleExceptionHandling library.",
+    "tags": [ "exception", "handler", "examples" ],
+    "projectUrl": "https://github.com/gravity00/SimpleExceptionHandling",
+    "licenseUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/LICENSE",
+    "iconUrl": "https://raw.githubusercontent.com/gravity00/SimpleExceptionHandling/master/SimpleExceptionHandling-Logo.png",
+    "releaseNotes": "",
+    "owners": [ "João Simões" ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/gravity00/SimpleExceptionHandling"
+    }
+  },
+  "buildOptions": {
+    "xmlDoc": false,
+    "optimize": false,
     "emitEntryPoint": true
   },
 
   "dependencies": {
     "SimpleExceptionHandling": {
       "target": "project"
-    } 
-  },
-
-  "commands": {
-    "SimpleExceptionHandling.Examples": "SimpleExceptionHandling.Examples"
+    }
   },
 
   "frameworks": {
-    "dnxcore5": {
+    "netcoreapp1.0": {
+      "imports": "dotnet",
       "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23516",
-        "System.Collections": "4.0.11-beta-23516",
-        "System.Console": "4.0.0-beta-23516",
-        "System.Linq": "4.0.1-beta-23516",
-        "System.Threading": "4.0.11-beta-23516"
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0-rc2-3002702"
+        }
       }
     }
   }
-  
+
 }
