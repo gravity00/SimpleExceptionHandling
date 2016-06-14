@@ -56,6 +56,13 @@
         "System.Runtime": "4.0.0",
         "System.Resources.ResourceManager": "4.0.0"
       }
+    },
+    "netstandard10": {
+      "imports": [ "dnxcore50" ],
+      "dependencies": {
+        "System.Runtime": "4.0.0",
+        "System.Resources.ResourceManager": "4.0.0"
+      }
     }
   }
 }
