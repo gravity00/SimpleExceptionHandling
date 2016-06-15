@@ -72,7 +72,7 @@ namespace SimpleExceptionHandling
 
         /// <summary>
         /// Creates a new instance.
-        /// The property <see cref="IHandlingResult.Handled"/> will be set to true.
+        /// The property <see cref="IHandlingResult{TResult}.Handled"/> will be set to true.
         /// </summary>
         public HandlingResult()
         {
