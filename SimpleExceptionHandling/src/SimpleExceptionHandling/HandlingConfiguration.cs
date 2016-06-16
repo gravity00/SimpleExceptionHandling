@@ -312,16 +312,25 @@ namespace SimpleExceptionHandling
             if (exception == null) throw new ArgumentNullException(nameof(exception));
 
             var input = new HandlingInput<TParameter>(exception, parameter);
-            for (var i = 0; i < _handlerCount; i++)
+            IHandlingResult<TResult> result = null;
+            try
             {
-                var result = _handlers[i](exception, input);
-                if (result.Handled)
-                    return result;
-            }
+                for (var i = 0; i < _handlerCount; i++)
+                {
+                    result = _handlers[i](exception, input);
+                    if (result.Handled)
+                        return result;
+                }
 
-            if (throwIfNotHandled)
-                throw exception;
-            return new HandlingResult<TResult>(false);
+                result = Handling.Ignore<TResult>();
+                if (throwIfNotHandled)
+                    throw exception;
+                return result;
+            }
+            finally
+            {
+                _finalizationHandler?.Invoke(exception, input, result ?? Handling.Ignore<TResult>());
+            }
         }
 
         #region Private
