@@ -35,6 +35,7 @@ namespace SimpleExceptionHandling
         private Func<Exception, IHandlingInput<TParameter>, IHandlingResult<TResult>>[] _handlers = 
             new Func<Exception, IHandlingInput<TParameter>, IHandlingResult<TResult>>[10];
         private int _handlerCount;
+        private Action<Exception, IHandlingInput<TParameter>, IHandlingResult<TResult>> _finalizationHandler;
 
         #region On
 
@@ -213,6 +214,82 @@ namespace SimpleExceptionHandling
                 return handler(castedException);
             });
 
+            return this;
+        }
+
+        #endregion
+
+        #region FinalizeWith
+
+        /// <summary>
+        /// Sets the given handler as the finalization handler that will be executed even if not handlers
+        /// matched the given exception.
+        /// </summary>
+        /// <param name="finalizationHandler">The handler to use</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public IHandlingConfiguration<TParameter, TResult> FinalizeWith(
+            Action<Exception, IHandlingInput<TParameter>, IHandlingResult<TResult>> finalizationHandler)
+        {
+            if (finalizationHandler == null) throw new ArgumentNullException(nameof(finalizationHandler));
+
+            _finalizationHandler = finalizationHandler;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the given handler as the finalization handler that will be executed even if not handlers
+        /// matched the given exception.
+        /// </summary>
+        /// <param name="finalizationHandler">The handler to use</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public IHandlingConfiguration<TParameter, TResult> FinalizeWith(
+            Action<Exception, IHandlingInput<TParameter>> finalizationHandler)
+        {
+            if (finalizationHandler == null) throw new ArgumentNullException(nameof(finalizationHandler));
+
+            _finalizationHandler = (e, input, result) =>
+            {
+                finalizationHandler(e, input);
+            };
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the given handler as the finalization handler that will be executed even if not handlers
+        /// matched the given exception.
+        /// </summary>
+        /// <param name="finalizationHandler">The handler to use</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public IHandlingConfiguration<TParameter, TResult> FinalizeWith(
+            Action<Exception> finalizationHandler)
+        {
+            if (finalizationHandler == null) throw new ArgumentNullException(nameof(finalizationHandler));
+
+            _finalizationHandler = (e, input, result) =>
+            {
+                finalizationHandler(e);
+            };
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the given handler as the finalization handler that will be executed even if not handlers
+        /// matched the given exception.
+        /// </summary>
+        /// <param name="finalizationHandler">The handler to use</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public IHandlingConfiguration<TParameter, TResult> FinalizeWith(Action finalizationHandler)
+        {
+            if (finalizationHandler == null) throw new ArgumentNullException(nameof(finalizationHandler));
+
+            _finalizationHandler = (e, input, result) =>
+            {
+                finalizationHandler();
+            };
             return this;
         }
 
