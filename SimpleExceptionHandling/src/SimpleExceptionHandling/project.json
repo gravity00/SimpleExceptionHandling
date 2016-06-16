@@ -3,7 +3,6 @@
   "title": "Simple Exception Handling",
   "description": "Library that helps developers to handle exceptions outside catch blocks. Typical usages are global exception handlers.",
   "authors": [ "João Simões" ],
-  "language": "en-US",
   "copyright": "Copyright © 2016 João Simões",
   "packOptions": {
     "summary": "Library that helps developers to handle exceptions outside catch blocks.",
@@ -37,14 +36,12 @@
     },
     "dnxcore5": {
       "dependencies": {
-        "System.Runtime": "4.0.0",
-        "System.Resources.ResourceManager": "4.0.0"
+        "System.Runtime": "4.0.0"
       }
     },
     "dotnet": {
       "dependencies": {
-        "System.Runtime": "4.0.0",
-        "System.Resources.ResourceManager": "4.0.0"
+        "System.Runtime": "4.0.0"
       }
     },
     "net20": { },
@@ -53,15 +50,13 @@
     "net45": { },
     "netcore45": {
       "dependencies": {
-        "System.Runtime": "4.0.0",
-        "System.Resources.ResourceManager": "4.0.0"
+        "System.Runtime": "4.0.0"
       }
     },
     "netstandard10": {
       "imports": [ "dnxcore50" ],
       "dependencies": {
-        "System.Runtime": "4.0.0",
-        "System.Resources.ResourceManager": "4.0.0"
+        "System.Runtime": "4.0.0"
       }
     }
   }
