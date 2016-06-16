@@ -120,6 +120,46 @@ namespace SimpleExceptionHandling
 
         #endregion
 
+        #region FinalizeWith
+
+        /// <summary>
+        /// Sets the given handler as the finalization handler that will be executed even if not handlers
+        /// matched the given exception.
+        /// </summary>
+        /// <param name="finalizationHandler">The handler to use</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        IHandlingConfiguration<TParameter, TResult> FinalizeWith(Action<Exception, IHandlingInput<TParameter>, IHandlingResult<TResult>> finalizationHandler);
+
+        /// <summary>
+        /// Sets the given handler as the finalization handler that will be executed even if not handlers
+        /// matched the given exception.
+        /// </summary>
+        /// <param name="finalizationHandler">The handler to use</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        IHandlingConfiguration<TParameter, TResult> FinalizeWith(Action<Exception, IHandlingInput<TParameter>> finalizationHandler);
+
+        /// <summary>
+        /// Sets the given handler as the finalization handler that will be executed even if not handlers
+        /// matched the given exception.
+        /// </summary>
+        /// <param name="finalizationHandler">The handler to use</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        IHandlingConfiguration<TParameter, TResult> FinalizeWith(Action<Exception> finalizationHandler);
+
+        /// <summary>
+        /// Sets the given handler as the finalization handler that will be executed even if not handlers
+        /// matched the given exception.
+        /// </summary>
+        /// <param name="finalizationHandler">The handler to use</param>
+        /// <returns>The configuration after changes</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        IHandlingConfiguration<TParameter, TResult> FinalizeWith(Action finalizationHandler);
+
+        #endregion
+
         /// <summary>
         /// Passes the given exception through all the handlers until beeing successfully handled.
         /// </summary>
