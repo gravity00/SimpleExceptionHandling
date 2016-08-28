@@ -21,6 +21,7 @@ This library is compatible with the folowing frameworks:
 * .NET Platform (> DotNET 5.0)
 * .NET Portable Subset 4 (.NETPortable,Version=v4.0,Profile=Profile328)
 * DNX Core (> DNXCore 5.0)
+* .NET Standard 1.0
 
 ## Tipical usage
 
