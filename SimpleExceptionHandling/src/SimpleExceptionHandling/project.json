@@ -30,33 +30,72 @@
       },
       "frameworkAssemblies": {
         "mscorlib": "",
-        "System": "",
-        "System.Core": ""
+        "System": { "type": "build" },
+        "System.Core": { "type": "build" }
       }
     },
-    "dnxcore5": {
-      "dependencies": {
-        "System.Runtime": "4.0.0"
+    ".NETPortable,Version=v4.5,Profile=Profile111": {
+      "buildOptions": {
+        "define": [ "PORTABLE45" ]
+      },
+      "frameworkAssemblies": {
+        "mscorlib": "",
+        "System": { "type": "build" },
+        "System.Core": { "type": "build" },
+        "System.Runtime": { "type": "build" }
       }
     },
-    "dotnet": {
-      "dependencies": {
-        "System.Runtime": "4.0.0"
+    "monoandroid1.0": {
+      "frameworkAssemblies": {
+        "mscorlib": ""
       }
     },
-    "net20": { },
-    "net35": { },
-    "net40": { },
-    "net45": { },
-    "netcore45": {
-      "dependencies": {
-        "System.Runtime": "4.0.0"
+    "monotouch1.0": {
+      "frameworkAssemblies": {
+        "mscorlib": ""
       }
     },
-    "netstandard10": {
-      "imports": [ "dnxcore50" ],
+    "net2.0": {
+      "frameworkAssemblies": {
+        "mscorlib": ""
+      }
+    },
+    "net4.0": {
+      "frameworkAssemblies": {
+        "mscorlib": ""
+      }
+    },
+    "net4.5": {
+      "frameworkAssemblies": {
+        "mscorlib": ""
+      }
+    },
+    "netcore5.0": {
       "dependencies": {
-        "System.Runtime": "4.0.0"
+        "System.Runtime": "4.1.0"
+      }
+    },
+    "netstandard1.0": {
+      "dependencies": {
+        "System.Runtime": "4.1.0"
+      }
+    },
+    "wpa8.1": {
+      "frameworkAssemblies": {
+        "mscorlib": "",
+        "System": { "type": "build" },
+        "System.Core": { "type": "build" },
+        "System.Runtime": { "type": "build" }
+      }
+    },
+    "xamarinios1.0": {
+      "frameworkAssemblies": {
+        "mscorlib": ""
+      }
+    },
+    "xamarintvos1.0": {
+      "frameworkAssemblies": {
+        "mscorlib": ""
       }
     }
   }
