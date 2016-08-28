@@ -13,15 +13,19 @@ Install-Package SimpleExceptionHandling
 
 This library is compatible with the folowing frameworks:
 
-* .NET for Windows Store apps (> .NETCore 4.5);
+* MonoAndroid 1.0;
+* MonoTouch 1.0;
 * .NET Framework 2.0
 * .NET Framework 3.5
 * .NET Framework 4.0
 * .NET Framework 4.5
-* .NET Platform (> DotNET 5.0)
-* .NET Portable Subset 4 (.NETPortable,Version=v4.0,Profile=Profile328)
-* DNX Core (> DNXCore 5.0)
-* .NET Standard 1.0
+* .NET Core 5.0;
+* .NET Standard 1.0;
+* Portable Class Library (.NETFramework 4.0, Silverlight 5.0, Windows 8.0, WindowsPhone 8.0, WindowsPhoneApp 8.1);
+* Portable Class Library (.NETFramework 4.5, Windows 8.0, WindowsPhoneApp 8.1);
+* WindowsPhoneApp 8.1;
+* Xamarin.iOS 1.0;
+* Xamarin.TVOS 1.0;
 
 ## Tipical usage
 
