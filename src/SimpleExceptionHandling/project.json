@@ -20,7 +20,7 @@
   "buildOptions": {
     "xmlDoc": true,
     "optimize": true,
-    "keyFile": "SimpleExceptionHandling.snk"
+    "keyFile": "../../tools/SimpleExceptionHandling.snk"
   },
 
   "frameworks": {
