@@ -25,21 +25,15 @@
   },
 
   "dependencies": {
-    "SimpleExceptionHandling": {
-      "target": "project"
-    }
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.0"
+    },
+    "SimpleExceptionHandling": { "target": "project" }
   },
 
   "frameworks": {
-    "netcoreapp1.0": {
-      "imports": "dotnet",
-      "dependencies": {
-        "Microsoft.NETCore.App": {
-          "type": "platform",
-          "version": "1.0.0-rc2-3002702"
-        }
-      }
-    }
+    "netcoreapp1.0": { }
   }
 
 }

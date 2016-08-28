@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F8FF3B4B-266E-45C6-ABD1-5B68FFF7733C}"
 EndProject
@@ -13,6 +13,26 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimpleExceptionHandling", "src\SimpleExceptionHandling\SimpleExceptionHandling.xproj", "{7C547964-762F-4E2A-9473-E3FB5D1ADCCB}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimpleExceptionHandling.Examples", "src\SimpleExceptionHandling.Examples\SimpleExceptionHandling.Examples.xproj", "{012218D6-2181-4885-BB01-4173152F1C41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{5737C83B-3ECB-4AFC-9D5C-D1EB6B50272A}"
+	ProjectSection(SolutionItems) = preProject
+		tools\SimpleExceptionHandling.PublicKey = tools\SimpleExceptionHandling.PublicKey
+		tools\SimpleExceptionHandling.snk = tools\SimpleExceptionHandling.snk
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{98F6CA57-3C03-4D78-9C0B-75806E6515D4}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "other", "other", "{A66BA278-D0C6-4373-909B-6D375AAFBF40}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+		SimpleExceptionHandling-Logo.pdn = SimpleExceptionHandling-Logo.pdn
+		SimpleExceptionHandling-Logo.png = SimpleExceptionHandling-Logo.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,5 +55,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7C547964-762F-4E2A-9473-E3FB5D1ADCCB} = {F8FF3B4B-266E-45C6-ABD1-5B68FFF7733C}
 		{012218D6-2181-4885-BB01-4173152F1C41} = {F8FF3B4B-266E-45C6-ABD1-5B68FFF7733C}
+		{5737C83B-3ECB-4AFC-9D5C-D1EB6B50272A} = {493EEE14-9FB8-4D53-A0CF-78BD1A0BDBF4}
+		{98F6CA57-3C03-4D78-9C0B-75806E6515D4} = {493EEE14-9FB8-4D53-A0CF-78BD1A0BDBF4}
+		{A66BA278-D0C6-4373-909B-6D375AAFBF40} = {493EEE14-9FB8-4D53-A0CF-78BD1A0BDBF4}
 	EndGlobalSection
 EndGlobal
