@@ -171,6 +171,7 @@ namespace SimpleExceptionHandling
         /// <param name="throwIfNotHandled">If not handled, should the exception be thrown</param>
         /// <returns>The handling result</returns>
         /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NoHandlerMatchedException"></exception>
         IHandlingResult<TResult> Catch(
             Exception exception, TParameter parameter = default(TParameter), bool throwIfNotHandled = true);
     }
