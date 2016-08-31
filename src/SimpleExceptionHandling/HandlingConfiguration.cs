@@ -306,6 +306,7 @@ namespace SimpleExceptionHandling
         /// <param name="throwIfNotHandled">If not handled, should the exception be thrown</param>
         /// <returns>The handling result</returns>
         /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NoHandlerMatchedException"></exception>
         public IHandlingResult<TResult> Catch(
             Exception exception, TParameter parameter = default(TParameter), bool throwIfNotHandled = true)
         {
@@ -324,7 +325,7 @@ namespace SimpleExceptionHandling
 
                 result = Handling.Ignore<TResult>();
                 if (throwIfNotHandled)
-                    throw exception;
+                    throw new NoHandlerMatchedException(exception);
                 return result;
             }
             finally
